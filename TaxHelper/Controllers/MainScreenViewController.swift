@@ -14,8 +14,7 @@ class MainScreenViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Gross price"
-        label.font = FontManager.shared.labelFont(withSize: 16, withWeight: .bold)
-        label.textColor = .label
+        label.font = FontManager.shared.labelFont(withSize: 16, withWeight: .medium)
         label.textAlignment = .left
         return label
     }()
@@ -28,7 +27,7 @@ class MainScreenViewController: UIViewController {
         label.layer.masksToBounds = true
         label.layer.borderWidth = 1.5
         label.layer.borderColor = #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5).cgColor
-        label.font = FontManager.shared.labelFont(withSize: 16, withWeight: .medium)
+        label.font = FontManager.shared.labelFont(withSize: 18)
         label.textColor = .tertiaryLabel
         label.textAlignment = .center
         return label
@@ -38,8 +37,7 @@ class MainScreenViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Net price"
-        label.font = FontManager.shared.labelFont(withSize: 16, withWeight: .bold)
-        label.textColor = .label
+        label.font = FontManager.shared.labelFont(withSize: 16, withWeight: .medium)
         label.textAlignment = .left
         return label
     }()
@@ -54,7 +52,7 @@ class MainScreenViewController: UIViewController {
         textField.layer.borderWidth = 1.5
         textField.layer.borderColor = #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5).cgColor
         textField.keyboardType = .decimalPad
-        textField.font = FontManager.shared.labelFont(withSize: 18, withWeight: .medium)
+        textField.font = FontManager.shared.labelFont(withSize: 18)
         return textField
     }()
     
@@ -62,8 +60,7 @@ class MainScreenViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Sales tax"
-        label.font = FontManager.shared.labelFont(withSize: 16, withWeight: .bold)
-        label.textColor = .label
+        label.font = FontManager.shared.labelFont(withSize: 16, withWeight: .medium)
         label.textAlignment = .left
         return label
     }()
@@ -80,7 +77,7 @@ class MainScreenViewController: UIViewController {
         textField.keyboardType = .decimalPad
         textField.returnKeyType = .done
         textField.isUserInteractionEnabled = false
-        textField.font = FontManager.shared.labelFont(withSize: 18, withWeight: .medium)
+        textField.font = FontManager.shared.labelFont(withSize: 18)
         return textField
     }()
     
@@ -88,7 +85,7 @@ class MainScreenViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "The tax automatically appears in the field based on the state you select"
-        label.font = FontManager.shared.labelFont(withSize: 12, withWeight: .light)
+        label.font = FontManager.shared.labelFont(withSize: 11, withWeight: .light)
         label.textColor = .secondaryLabel
         label.textAlignment = .left
         label.numberOfLines = 2
@@ -98,9 +95,8 @@ class MainScreenViewController: UIViewController {
     private let selectStateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Please click to select state ‣"
+        label.text = "Please click to select state"
         label.font = FontManager.shared.labelFont(withSize: 18, withWeight: .bold)
-        label.textColor = .label
         label.textAlignment = .left
         label.isUserInteractionEnabled = true
         return label
@@ -235,7 +231,7 @@ private extension MainScreenViewController {
     }
     
     func configureNavigationBar() {
-        title = "Sales Tax Calculator"
+        title = "Tax Helper"
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "info.circle")?.withRenderingMode(.alwaysOriginal),
             style: .plain,

@@ -39,6 +39,7 @@ class FAQViewController: UIViewController {
         textView.layer.masksToBounds = true
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         textView.textAlignment = .left
+        textView.backgroundColor = .white
         textView.text = """
         1. Find out the sales tax rate, an example will be the state of Oklahoma, in which 4.5%.\n
         2. Find out the net price of a product. Let's use $1299.\n
@@ -69,6 +70,7 @@ class FAQViewController: UIViewController {
         textView.layer.masksToBounds = true
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         textView.textAlignment = .left
+        textView.backgroundColor = .white
         textView.text = """
         Alaska, Delaware, Montana, New Hampshire and Oregon all do not have a statewide sales tax, although Alaska and Montana both allow local sales taxes. Delaware also imposes a gross receipts tax on businesses. Some other states have not taxes on food and other items.
         """
@@ -96,6 +98,7 @@ class FAQViewController: UIViewController {
         textView.layer.masksToBounds = true
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         textView.textAlignment = .left
+        textView.backgroundColor = .white
         textView.text = """
         Yes, sales taxes are regressive. They are charged as a percentage of the sale price, and therefore are the same regardless of your income. This means that a poorer person pays a larger percent of their income.
         """
@@ -124,6 +127,7 @@ class FAQViewController: UIViewController {
         textView.layer.masksToBounds = true
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         textView.textAlignment = .left
+        textView.backgroundColor = .white
         textView.text = """
         If you’re selling tangible goods that are not exempt from sales tax (such as groceries), you more than likely have to collect sales tax. If you’re selling a service, such as house cleaning or legal work, that will depend on your state’s specific laws.\n
         If you’re selling goods online, you are typically required to collect sales tax from wherever your business is located.
@@ -153,6 +157,7 @@ class FAQViewController: UIViewController {
         textView.layer.masksToBounds = true
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         textView.textAlignment = .left
+        textView.backgroundColor = .white
         textView.text = """
         If you were supposed to collect sales tax and didn’t, you could be looking at high financial penalties and interest. Those rates will depend on your state. You could also potentially face criminal charges or lose your vendor license.
         """
@@ -179,7 +184,7 @@ private extension FAQViewController {
     }
     
     func configureUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemGray6
 
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)

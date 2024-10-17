@@ -6,10 +6,6 @@ class MainScreenViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var stateTaxes: [StateTax] = []
-    
-    private var selectedStateTax: Double = 0.0
-    
     private let grossPriceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -81,7 +77,7 @@ class MainScreenViewController: UIViewController {
         return textField
     }()
     
-    private let taxTextFieldDescriptionLabel: UILabel = {
+    private let taxTextFieldExplanationLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "The tax automatically appears in the field based on the state you select"
@@ -92,47 +88,48 @@ class MainScreenViewController: UIViewController {
         return label
     }()
     
-    private let selectStateLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Please click to select state"
-        label.font = FontManager.shared.labelFont(withSize: 18, withWeight: .bold)
-        label.textAlignment = .left
-        label.isUserInteractionEnabled = true
-        return label
-    }()
-    
-    private let statePickerView: UIPickerView = {
-        let picker = UIPickerView()
-        picker.translatesAutoresizingMaskIntoConstraints = false
-        return picker
-    }()
-    
-    private let calculateButton: UIButton = {
+    private let selectStateButton: UIButton = {
+        let normalState = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("CALCULATE", for: .normal)
-        button.setTitleColor(#colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1), for: .normal)
+        button.setTitle("Select state ‣", for: .normal)
+        button.setTitleColor(normalState, for: .normal)
         button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         button.titleLabel?.font = FontManager.shared.labelFont(withSize: 20, withWeight: .bold)
         button.layer.cornerRadius = 7
         button.layer.masksToBounds = true
         button.layer.borderWidth = 1.5
-        button.layer.borderColor = #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
+        button.layer.borderColor = normalState.cgColor
+        return button
+    }()
+    
+    private let calculateButton: UIButton = {
+        let stateNotActive = #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5)
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Calculate", for: .normal)
+        button.setTitleColor(stateNotActive, for: .normal)
+        button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        button.titleLabel?.font = FontManager.shared.labelFont(withSize: 20, withWeight: .bold)
+        button.layer.cornerRadius = 7
+        button.layer.masksToBounds = true
+        button.layer.borderWidth = 1.5
+        button.layer.borderColor = stateNotActive.cgColor
         return button
     }()
     
     private let resetButton: UIButton = {
+        let baseColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 0.5036912122)
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("RESET", for: .normal)
-        button.setTitleColor(#colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1), for: .normal)
+        button.setTitle("Reset", for: .normal)
+        button.setTitleColor(baseColor, for: .normal)
         button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         button.titleLabel?.font = FontManager.shared.labelFont(withSize: 20, withWeight: .bold)
         button.layer.cornerRadius = 7
         button.layer.masksToBounds = true
         button.layer.borderWidth = 1.5
-        button.layer.borderColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+        button.layer.borderColor = baseColor.cgColor
         return button
     }()
     
@@ -156,9 +153,8 @@ private extension MainScreenViewController {
         view.addSubview(priceTextField)
         view.addSubview(salesTaxLabel)
         view.addSubview(taxTextField)
-        view.addSubview(taxTextFieldDescriptionLabel)
-        view.addSubview(selectStateLabel)
-        view.addSubview(statePickerView)
+        view.addSubview(taxTextFieldExplanationLabel)
+        view.addSubview(selectStateButton)
         view.addSubview(calculateButton)
         view.addSubview(resetButton)
         
@@ -168,65 +164,58 @@ private extension MainScreenViewController {
         configureUI()
         setupAction()
         settingDelegate()
-        loadValuesFromJSON()
         configureNavigationBar()
     }
     
     func configureUI() {
-        view.backgroundColor = .systemBackground
-        
-        let baseHeight: CGFloat = 36
-        let baseMultiplier: CGFloat = 0.6
+        view.backgroundColor = INITIAL_COLOR
         
         NSLayoutConstraint.activate([
             grossPriceLabel.leadingAnchor.constraint(equalTo: totalPriceValueLabel.leadingAnchor),
             grossPriceLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 26),
-            grossPriceLabel.heightAnchor.constraint(equalToConstant: baseHeight),
+            grossPriceLabel.heightAnchor.constraint(equalToConstant: BASE_HEIGHT),
             
             totalPriceValueLabel.topAnchor.constraint(equalTo: grossPriceLabel.bottomAnchor),
             totalPriceValueLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            totalPriceValueLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: baseMultiplier),
-            totalPriceValueLabel.heightAnchor.constraint(equalToConstant: baseHeight),
+            totalPriceValueLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: BASE_MULTIPLIER),
+            totalPriceValueLabel.heightAnchor.constraint(equalToConstant: BASE_HEIGHT),
             
             netPriceLabel.leadingAnchor.constraint(equalTo: totalPriceValueLabel.leadingAnchor),
             netPriceLabel.topAnchor.constraint(equalTo: totalPriceValueLabel.bottomAnchor, constant: 10),
-            netPriceLabel.heightAnchor.constraint(equalToConstant: baseHeight),
+            netPriceLabel.heightAnchor.constraint(equalToConstant: BASE_HEIGHT),
             
             priceTextField.topAnchor.constraint(equalTo: netPriceLabel.bottomAnchor),
             priceTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            priceTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: baseMultiplier),
-            priceTextField.heightAnchor.constraint(equalToConstant: baseHeight),
+            priceTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: BASE_MULTIPLIER),
+            priceTextField.heightAnchor.constraint(equalToConstant: BASE_HEIGHT),
             
             salesTaxLabel.leadingAnchor.constraint(equalTo: totalPriceValueLabel.leadingAnchor),
             salesTaxLabel.topAnchor.constraint(equalTo: priceTextField.bottomAnchor, constant: 10),
-            salesTaxLabel.heightAnchor.constraint(equalToConstant: baseHeight),
+            salesTaxLabel.heightAnchor.constraint(equalToConstant: BASE_HEIGHT),
             
             taxTextField.topAnchor.constraint(equalTo: salesTaxLabel.bottomAnchor),
             taxTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            taxTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: baseMultiplier),
-            taxTextField.heightAnchor.constraint(equalToConstant: baseHeight),
+            taxTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: BASE_MULTIPLIER),
+            taxTextField.heightAnchor.constraint(equalToConstant: BASE_HEIGHT),
             
-            taxTextFieldDescriptionLabel.topAnchor.constraint(equalTo: taxTextField.bottomAnchor, constant: 4),
-            taxTextFieldDescriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            taxTextFieldDescriptionLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: baseMultiplier),
+            taxTextFieldExplanationLabel.topAnchor.constraint(equalTo: taxTextField.bottomAnchor, constant: 4),
+            taxTextFieldExplanationLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            taxTextFieldExplanationLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: BASE_MULTIPLIER),
             
-            selectStateLabel.topAnchor.constraint(equalTo: taxTextFieldDescriptionLabel.bottomAnchor, constant: 20),
-            selectStateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            selectStateButton.topAnchor.constraint(equalTo: taxTextFieldExplanationLabel.bottomAnchor, constant: 20),
+            selectStateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            selectStateButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: BASE_MULTIPLIER),
+            selectStateButton.heightAnchor.constraint(equalToConstant: HEIGHT_ANCHOR),
             
-            statePickerView.topAnchor.constraint(equalTo: selectStateLabel.bottomAnchor),
-            statePickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            statePickerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: baseMultiplier),
-            statePickerView.heightAnchor.constraint(equalToConstant: 120),
-            
-            calculateButton.topAnchor.constraint(equalTo: statePickerView.bottomAnchor, constant: 20),
+            calculateButton.topAnchor.constraint(equalTo: selectStateButton.bottomAnchor, constant: 30),
             calculateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            calculateButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: baseMultiplier),
-            calculateButton.heightAnchor.constraint(equalToConstant: 40),
+            calculateButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: BASE_MULTIPLIER),
+            calculateButton.heightAnchor.constraint(equalToConstant: HEIGHT_ANCHOR),
             
-            resetButton.topAnchor.constraint(equalTo: calculateButton.bottomAnchor, constant: 12),
+            resetButton.topAnchor.constraint(equalTo: calculateButton.bottomAnchor, constant: 16),
             resetButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            resetButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: baseMultiplier),
-            resetButton.heightAnchor.constraint(equalToConstant: 40),
+            resetButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: BASE_MULTIPLIER),
+            resetButton.heightAnchor.constraint(equalToConstant: HEIGHT_ANCHOR),
         ])
     }
     
@@ -248,9 +237,6 @@ private extension MainScreenViewController {
     }
     
     func settingDelegate() {
-        statePickerView.delegate = self
-        statePickerView.dataSource = self
-        taxTextField.inputView = statePickerView
         priceTextField.delegate = self
         taxTextField.delegate = self
     }
@@ -262,6 +248,13 @@ private extension MainScreenViewController {
 private extension MainScreenViewController {
     
     func setupAction() {
+        let selectStateAction = UIAction { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.stateSelection()
+        }
+        
+        selectStateButton.addAction(selectStateAction, for: .touchUpInside)
+        
         let calculateAction = UIAction { [weak self] _ in
             guard let strongSelf = self else { return }
             strongSelf.calculateTotalPrice()
@@ -279,33 +272,102 @@ private extension MainScreenViewController {
         resetButton.addAction(resetAction, for: .touchUpInside)
     }
     
-    func calculateTotalPrice() {
-        guard let price = Double(priceTextField.text ?? "") else { return }
+    func stateSelection() {
+        let statePickerVC = StatePickerViewController()
+        let nav = UINavigationController(rootViewController: statePickerVC)
         
-        let totalTaxes = price * (selectedStateTax / 100)
-        let totalPrice = price + totalTaxes
-        let formattedTotalPrice = String(format: "$%.2f", totalPrice)
-        updateTotalPriceLabel(with: formattedTotalPrice)
+        statePickerVC.didSelectStateTax = { [weak self] (taxRate, state) in
+            guard let strongSelf = self else { return }
+            
+            strongSelf.updateTextFieldState(
+                strongSelf.taxTextField,
+                withText: "\(taxRate)",
+                borderColor: #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
+            )
+            
+            strongSelf.updateButtonState(
+                strongSelf.selectStateButton,
+                title: "\(state)",
+                titleColor: .black,
+                borderColor: .black
+            )
+        }
+        
+        nav.modalPresentationStyle = .formSheet
+        present(nav, animated: true)
     }
     
-    func updateTotalPriceLabel(with value: String) {
-        totalPriceValueLabel.text = value
-        totalPriceValueLabel.textColor = .label
-        totalPriceValueLabel.layer.borderColor = #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1).cgColor
+    func calculateTotalPrice() {
+        guard let price = Double(priceTextField.text ?? "") else { return }
+        guard let taxRate = Double(taxTextField.text ?? "") else { return }
+
+        let totalTaxes = price * (taxRate / 100)
+        let totalPrice = price + totalTaxes
+        
+        updateLabelState(
+            totalPriceValueLabel,
+            text: String(format: "$%.2f", totalPrice),
+            textColor: .label,
+            borderColor: #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
+        )
+        
+        updateButtonState(
+            calculateButton,
+            title: "Calculated",
+            titleColor: #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1),
+            borderColor: #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
+        )
+        
+        updateButtonState(
+            resetButton,
+            title: "Reset",
+            titleColor: #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1),
+            borderColor: #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+        )
     }
     
     func resetValues() {
-        totalPriceValueLabel.text = "USD"
-        totalPriceValueLabel.textColor = .tertiaryLabel
-        totalPriceValueLabel.layer.borderColor = #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5).cgColor
+        updateLabelState(
+            totalPriceValueLabel,
+            text: "USD",
+            textColor: .tertiaryLabel,
+            borderColor: #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5)
+        )
         
-        priceTextField.text = nil
-        priceTextField.layer.borderColor = #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5).cgColor
-        priceTextField.placeholder = "USD"
+        updateTextFieldState(
+            priceTextField,
+            withText: "",
+            placeholder: "USD",
+            borderColor: #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5)
+        )
         
-        taxTextField.text = nil
-        taxTextField.layer.borderColor = #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5).cgColor
-        taxTextField.placeholder = "%"
+        updateTextFieldState(
+            taxTextField,
+            withText: "",
+            placeholder: "%",
+            borderColor: #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5)
+        )
+        
+        updateButtonState(
+            calculateButton,
+            title: "Calculate",
+            titleColor: #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5),
+            borderColor: #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5)
+        )
+        
+        updateButtonState(
+            selectStateButton,
+            title: "Select state ‣",
+            titleColor: UIColor.black.withAlphaComponent(0.5),
+            borderColor: UIColor.black.withAlphaComponent(0.5)
+        )
+        
+        updateButtonState(
+            resetButton,
+            title: "Reset",
+            titleColor: #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 0.5036912122),
+            borderColor: #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 0.5036912122)
+        )
     }
     
     func addDoneButtonTo(_ textField: UITextField) {
@@ -334,69 +396,42 @@ private extension MainScreenViewController {
         view.endEditing(true)
     }
     
-    func loadStateTaxes() -> [StateTax]? {
-        guard let url = Bundle.main.url(forResource: "state_taxes", withExtension: "json") else {
-            print("Failed to find state_taxes.json in bundle.")
-            return nil
-        }
-        
-        do {
-            let data = try Data(contentsOf: url)
-            let decoder = JSONDecoder()
-            let stateTaxes = try decoder.decode([StateTax].self, from: data)
-            return stateTaxes
-        } catch {
-            print("Error loading state taxes: \(error)")
-            return nil
-        }
-    }
-    
-    func loadValuesFromJSON() {
-        if let loadedStateTaxes = loadStateTaxes() {
-            stateTaxes = loadedStateTaxes
-            print("Loaded state taxes: \(stateTaxes)")
-        } else {
-            print("Failed to load state taxes.")
-        }
-    }
-    
     @objc func didTappedInfoButton() {
-        let vc = InfoViewController()
-        let nav = UINavigationController(rootViewController: vc)
+        let rootVC = InfoViewController()
+        let nav = UINavigationController(rootViewController: rootVC)
         nav.modalPresentationStyle = .formSheet
         present(nav, animated: true)
     }
     
     @objc func didTappedQuestionMarkButton() {
-        let vc = FAQViewController()
-        let nav = UINavigationController(rootViewController: vc)
+        let rootVC = FAQViewController()
+        let nav = UINavigationController(rootViewController: rootVC)
         nav.modalPresentationStyle = .formSheet
         present(nav, animated: true)
     }
 }
 
 
-// MARK: - UIPickerViewDelegate, UIPickerViewDataSource
+// MARK: - UI State Update Helpers
 
-extension MainScreenViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension MainScreenViewController {
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        1
+    func updateTextFieldState(_ textField: UITextField, withText text: String, placeholder: String = "", borderColor: UIColor) {
+        textField.text = text
+        textField.placeholder = placeholder
+        textField.layer.borderColor = borderColor.cgColor
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        stateTaxes.count
+    func updateButtonState(_ button: UIButton, title: String, titleColor: UIColor, borderColor: UIColor) {
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(titleColor, for: .normal)
+        button.layer.borderColor = borderColor.cgColor
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        stateTaxes[row].state
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let selectedState = stateTaxes[row]
-        selectedStateTax = selectedState.taxRate
-        taxTextField.text = "\(selectedState.taxRate)"
-        taxTextField.layer.borderColor = #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1).cgColor
+    func updateLabelState(_ label: UILabel, text: String, textColor: UIColor, borderColor: UIColor) {
+        label.text = text
+        label.textColor = textColor
+        label.layer.borderColor = borderColor.cgColor
     }
 }
 

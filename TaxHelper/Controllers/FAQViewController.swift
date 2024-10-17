@@ -298,8 +298,8 @@ private extension FAQViewController {
     func configureNavigationBar() {
         title = "FAQs"
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .done,
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
             target: self,
             action: #selector(didTappedDoneButton)
         )

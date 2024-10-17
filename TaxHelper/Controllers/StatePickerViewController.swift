@@ -6,9 +6,10 @@ class StatePickerViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var stateTaxes: [StateTax] = []
+    var stateTaxes: [StateTax] = []
     
-    private var selectedStateTax: Double = 0.0
+    // Closure to pass selected tax rate and state
+    var didSelectStateTax: ((Double, String) -> Void)?
     
     private let statePickerView: UIPickerView = {
         let picker = UIPickerView()
@@ -21,6 +22,11 @@ class StatePickerViewController: UIViewController {
     override func viewDidLoad() {
         initialSetup()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadValuesFromJSON()
+    }
 }
 
 
@@ -30,25 +36,86 @@ private extension StatePickerViewController {
     
     func initialSetup() {
         configureUI()
+        configureNavigationBar()
         settingDelegate()
     }
     
     func configureUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = INITIAL_COLOR
         
         view.addSubview(statePickerView)
         
         NSLayoutConstraint.activate([
             statePickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             statePickerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            statePickerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6),
-            statePickerView.heightAnchor.constraint(equalToConstant: 120),
+            statePickerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: BASE_MULTIPLIER),
+            statePickerView.heightAnchor.constraint(equalToConstant: 200),
         ])
+    }
+    
+    func configureNavigationBar() {
+        title = "State selection"
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .save,
+            target: self,
+            action: #selector(didTappedSaveButton)
+        )
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
+            target: self,
+            action: #selector(didTappedCloseButton)
+        )
     }
     
     func settingDelegate() {
         statePickerView.delegate = self
         statePickerView.dataSource = self
+    }
+    
+    @objc func didTappedSaveButton() {
+        let selectedRow = statePickerView.selectedRow(inComponent: 0)
+        let selectedState = stateTaxes[selectedRow]
+        print("\(selectedState.taxRate) % tax in \(selectedState.state)")
+        didSelectStateTax?(selectedState.taxRate, selectedState.state)
+        dismiss(animated: true)
+    }
+    
+    @objc func didTappedCloseButton() {
+        dismiss(animated: true)
+    }
+}
+
+
+// MARK: - Populate data
+
+extension StatePickerViewController {
+    
+    func loadStateTaxes() -> [StateTax]? {
+        guard let url = Bundle.main.url(forResource: "state_taxes", withExtension: "json") else {
+            print("Failed to find state_taxes.json in bundle.")
+            return nil
+        }
+        
+        do {
+            let data = try Data(contentsOf: url)
+            let decoder = JSONDecoder()
+            let stateTaxes = try decoder.decode([StateTax].self, from: data)
+            return stateTaxes
+        } catch {
+            print("Error loading state taxes: \(error)")
+            return nil
+        }
+    }
+    
+    func loadValuesFromJSON() {
+        if let loadedStateTaxes = loadStateTaxes() {
+            stateTaxes = loadedStateTaxes
+            print("Loaded state taxes: \(stateTaxes)")
+        } else {
+            print("Failed to load state taxes.")
+        }
     }
 }
 
@@ -67,12 +134,5 @@ extension StatePickerViewController: UIPickerViewDataSource, UIPickerViewDelegat
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         stateTaxes[row].state
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let selectedState = stateTaxes[row]
-        selectedStateTax = selectedState.taxRate
-//        taxTextField.text = "\(selectedState.taxRate)"
-//        taxTextField.layer.borderColor = #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1).cgColor
     }
 }

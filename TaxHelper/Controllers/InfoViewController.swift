@@ -154,8 +154,8 @@ private extension InfoViewController {
     func configureNavigationBar() {
         title = "Info"
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .done,
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
             target: self,
             action: #selector(didTappedDoneButton)
         )

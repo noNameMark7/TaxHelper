@@ -1,7 +1,5 @@
 import UIKit
 
-// MARK: - StatePickerViewController
-
 class StatePickerViewController: UIViewController {
     
     // MARK: - Properties

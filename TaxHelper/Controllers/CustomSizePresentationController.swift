@@ -1,7 +1,5 @@
 import UIKit
 
-// MARK: - CustomSizePresentationController
-
 class CustomSizePresentationController: UIPresentationController {
     
     override var frameOfPresentedViewInContainerView: CGRect {

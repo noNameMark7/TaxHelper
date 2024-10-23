@@ -1,7 +1,5 @@
 import UIKit
 
-// MARK: - MainScreenViewController
-
 class MainScreenViewController: UIViewController {
     
     // MARK: - Properties

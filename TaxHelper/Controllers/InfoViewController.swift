@@ -1,7 +1,5 @@
 import UIKit
 
-// MARK: - InfoViewController
-
 class InfoViewController: UIViewController {
 
     // MARK: - Properties

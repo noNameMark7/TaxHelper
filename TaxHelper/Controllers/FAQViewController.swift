@@ -1,7 +1,5 @@
 import UIKit
 
-// MARK: - FAQViewController
-
 class FAQViewController: UIViewController {
 
     // MARK: - Properties

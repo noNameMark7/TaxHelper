@@ -72,25 +72,24 @@
 		4D8624CA2CB873A800DF3BC7 /* TaxHelper */ = {
 			isa = PBXGroup;
 			children = (
-				4D8624E62CB874BB00DF3BC7 /* Utils */,
+				4DE379942CC935BC0029E5FA /* Resources */,
+				4D8624E62CB874BB00DF3BC7 /* Utilities */,
 				4D8624E52CB874B000DF3BC7 /* Controllers */,
 				4D8624E42CB874A100DF3BC7 /* Models */,
-				4D8624DF2CB873F500DF3BC7 /* Application */,
-				4D8624D42CB873AA00DF3BC7 /* Assets.xcassets */,
-				4D8624D62CB873AA00DF3BC7 /* LaunchScreen.storyboard */,
+				4D8624DF2CB873F500DF3BC7 /* AppDelegates */,
 				4D8624D92CB873AA00DF3BC7 /* Info.plist */,
 				4D8624E22CB8748D00DF3BC7 /* state_taxes.json */,
 			);
 			path = TaxHelper;
 			sourceTree = "<group>";
 		};
-		4D8624DF2CB873F500DF3BC7 /* Application */ = {
+		4D8624DF2CB873F500DF3BC7 /* AppDelegates */ = {
 			isa = PBXGroup;
 			children = (
 				4D8624CB2CB873A800DF3BC7 /* AppDelegate.swift */,
 				4D8624CD2CB873A800DF3BC7 /* SceneDelegate.swift */,
 			);
-			path = Application;
+			path = AppDelegates;
 			sourceTree = "<group>";
 		};
 		4D8624E42CB874A100DF3BC7 /* Models */ = {
@@ -113,14 +112,23 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		4D8624E62CB874BB00DF3BC7 /* Utils */ = {
+		4D8624E62CB874BB00DF3BC7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				4D8624E72CB874E000DF3BC7 /* FontManager.swift */,
 				4D8624E92CB874F100DF3BC7 /* Extensions.swift */,
 				4D277FF22CC1A8A8005E76F9 /* Constants.swift */,
 			);
-			path = Utils;
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		4DE379942CC935BC0029E5FA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4D8624D62CB873AA00DF3BC7 /* LaunchScreen.storyboard */,
+				4D8624D42CB873AA00DF3BC7 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

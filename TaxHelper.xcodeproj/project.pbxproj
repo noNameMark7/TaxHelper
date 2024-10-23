@@ -20,6 +20,7 @@
 		4D8624F02CB8760A00DF3BC7 /* StatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8624EF2CB8760A00DF3BC7 /* StatePickerViewController.swift */; };
 		4D8624F22CB8766200DF3BC7 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8624F12CB8766200DF3BC7 /* InfoViewController.swift */; };
 		4D8624F42CB8767F00DF3BC7 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8624F32CB8767F00DF3BC7 /* FAQViewController.swift */; };
+		4DE379932CC6E5290029E5FA /* CustomSizePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE379922CC6E5290029E5FA /* CustomSizePresentationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		4D8624EF2CB8760A00DF3BC7 /* StatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatePickerViewController.swift; sourceTree = "<group>"; };
 		4D8624F12CB8766200DF3BC7 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		4D8624F32CB8767F00DF3BC7 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
+		4DE379922CC6E5290029E5FA /* CustomSizePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSizePresentationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				4D8624EF2CB8760A00DF3BC7 /* StatePickerViewController.swift */,
 				4D8624F12CB8766200DF3BC7 /* InfoViewController.swift */,
 				4D8624F32CB8767F00DF3BC7 /* FAQViewController.swift */,
+				4DE379922CC6E5290029E5FA /* CustomSizePresentationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D8624CC2CB873A800DF3BC7 /* AppDelegate.swift in Sources */,
+				4DE379932CC6E5290029E5FA /* CustomSizePresentationController.swift in Sources */,
 				4D8624E82CB874E000DF3BC7 /* FontManager.swift in Sources */,
 				4D8624CE2CB873A800DF3BC7 /* SceneDelegate.swift in Sources */,
 				4D8624EC2CB8755900DF3BC7 /* StateTax.swift in Sources */,

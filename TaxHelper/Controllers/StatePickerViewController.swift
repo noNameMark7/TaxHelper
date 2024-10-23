@@ -26,6 +26,14 @@ class StatePickerViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadValuesFromJSON()
+        
+        guard let screenHeight = view.window?.windowScene?.screen.bounds.height else { return }
+        guard let screenWidth = view.window?.windowScene?.screen.bounds.width else { return }
+        
+        preferredContentSize = CGSize(
+            width: screenWidth,
+            height: screenHeight / 2.8
+        )
     }
 }
 
@@ -47,9 +55,8 @@ private extension StatePickerViewController {
         
         NSLayoutConstraint.activate([
             statePickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            statePickerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            statePickerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: BASE_MULTIPLIER),
-            statePickerView.heightAnchor.constraint(equalToConstant: 200),
+            statePickerView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            statePickerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7)
         ])
     }
     
@@ -63,7 +70,7 @@ private extension StatePickerViewController {
         )
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .close,
+            barButtonSystemItem: .cancel,
             target: self,
             action: #selector(didTappedCloseButton)
         )

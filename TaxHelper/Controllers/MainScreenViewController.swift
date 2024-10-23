@@ -293,7 +293,10 @@ private extension MainScreenViewController {
             )
         }
         
-        nav.modalPresentationStyle = .formSheet
+        nav.modalPresentationStyle = .custom
+        
+        nav.transitioningDelegate = self
+        
         present(nav, animated: true)
     }
     
@@ -454,5 +457,22 @@ extension MainScreenViewController: UITextFieldDelegate {
                 textField.placeholder = "%"
             }
         }
+    }
+}
+
+
+// MARK: - UIViewControllerTransitioningDelegate
+
+extension MainScreenViewController: UIViewControllerTransitioningDelegate {
+    
+    func presentationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController?,
+        source: UIViewController
+    ) -> UIPresentationController? {
+        CustomSizePresentationController(
+            presentedViewController: presented,
+            presenting: presenting
+        )
     }
 }

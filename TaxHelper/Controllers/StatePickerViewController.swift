@@ -33,6 +33,11 @@ class StatePickerViewController: UIViewController {
             height: screenHeight / 2.8
         )
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateAppearance(for: traitCollection)
+    }
 }
 
 
@@ -47,8 +52,6 @@ private extension StatePickerViewController {
     }
     
     func configureUI() {
-        view.backgroundColor = INITIAL_COLOR
-        
         view.addSubview(statePickerView)
         
         NSLayoutConstraint.activate([
@@ -56,6 +59,16 @@ private extension StatePickerViewController {
             statePickerView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             statePickerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7)
         ])
+        
+        updateAppearance(for: traitCollection)
+    }
+    
+    func updateAppearance(for traitCollection: UITraitCollection) {
+        if traitCollection.userInterfaceStyle == .dark {
+            view.backgroundColor = DARK_APPEARANCE
+        } else {
+            view.backgroundColor = LIGHT_APPEARANCE
+        }
     }
     
     func configureNavigationBar() {

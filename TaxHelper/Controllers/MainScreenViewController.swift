@@ -78,7 +78,7 @@ class MainScreenViewController: UIViewController {
     private let taxTextFieldExplanationLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "The tax automatically appears in the field based on the state you select"
+        label.text = "Automatically appears in the field based on the state you select."
         label.font = FontManager.shared.labelFont(withSize: 11, withWeight: .light)
         label.textColor = .secondaryLabel
         label.textAlignment = .left
@@ -137,6 +137,11 @@ class MainScreenViewController: UIViewController {
         super.viewDidLoad()
         initialSetup()
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateAppearance(for: traitCollection)
+    }
 }
 
 
@@ -166,8 +171,6 @@ private extension MainScreenViewController {
     }
     
     func configureUI() {
-        view.backgroundColor = INITIAL_COLOR
-        
         NSLayoutConstraint.activate([
             grossPriceLabel.leadingAnchor.constraint(equalTo: totalPriceValueLabel.leadingAnchor),
             grossPriceLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 26),
@@ -215,6 +218,16 @@ private extension MainScreenViewController {
             resetButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: BASE_MULTIPLIER),
             resetButton.heightAnchor.constraint(equalToConstant: HEIGHT_ANCHOR),
         ])
+        
+        updateAppearance(for: traitCollection)
+    }
+    
+    func updateAppearance(for traitCollection: UITraitCollection) {
+        if traitCollection.userInterfaceStyle == .dark {
+            view.backgroundColor = DARK_APPEARANCE
+        } else {
+            view.backgroundColor = LIGHT_APPEARANCE
+        }
     }
     
     func configureNavigationBar() {

@@ -3,12 +3,12 @@ import UIKit
 class StatePickerViewController: UIViewController {
     
     // MARK: - Properties
-    
     var stateTaxes: [StateTax] = []
     
     // Closure to pass selected tax rate and state
     var didSelectStateTax: ((Double, String) -> Void)?
     
+    // MARK: - UI Components
     private let statePickerView: UIPickerView = {
         let picker = UIPickerView()
         picker.translatesAutoresizingMaskIntoConstraints = false
@@ -16,13 +16,13 @@ class StatePickerViewController: UIViewController {
     }()
     
     // MARK: - Lifecycle
-    
     override func viewDidLoad() {
         initialSetup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         loadValuesFromJSON()
         
         guard let screenHeight = view.window?.windowScene?.screen.bounds.height else { return }
@@ -42,7 +42,6 @@ class StatePickerViewController: UIViewController {
 
 
 // MARK: - Initial setup
-
 private extension StatePickerViewController {
     
     func initialSetup() {
@@ -107,7 +106,6 @@ private extension StatePickerViewController {
 
 
 // MARK: - Populate data
-
 extension StatePickerViewController {
     
     func loadStateTaxes() -> [StateTax]? {
@@ -139,7 +137,6 @@ extension StatePickerViewController {
 
 
 // MARK: - UIPickerViewDataSource, UIPickerViewDelegate
-
 extension StatePickerViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

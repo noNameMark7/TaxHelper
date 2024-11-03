@@ -2,8 +2,7 @@ import UIKit
 
 class MainScreenViewController: UIViewController {
     
-    // MARK: - Properties
-    
+    // MARK: - UI Components
     private let grossPriceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -132,7 +131,6 @@ class MainScreenViewController: UIViewController {
     }()
     
     // MARK: - Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
@@ -146,7 +144,6 @@ class MainScreenViewController: UIViewController {
 
 
 // MARK: - Initial setup
-
 private extension MainScreenViewController {
     
     func initialSetup() {
@@ -255,7 +252,6 @@ private extension MainScreenViewController {
 
 
 // MARK: - Actions
-
 private extension MainScreenViewController {
     
     func setupAction() {
@@ -284,6 +280,7 @@ private extension MainScreenViewController {
     }
     
     func stateSelection() {
+        
         let statePickerVC = StatePickerViewController()
         let nav = UINavigationController(rootViewController: statePickerVC)
         
@@ -293,7 +290,7 @@ private extension MainScreenViewController {
             strongSelf.updateTextFieldState(
                 strongSelf.taxTextField,
                 withText: "\(taxRate)",
-                borderColor: #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
+                borderColor: ACTIVE_STATE_COLOR
             )
             
             strongSelf.updateButtonState(
@@ -322,14 +319,14 @@ private extension MainScreenViewController {
             totalPriceValueLabel,
             text: String(format: "$%.2f", totalPrice),
             textColor: .label,
-            borderColor: #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
+            borderColor: ACTIVE_STATE_COLOR
         )
         
         updateButtonState(
             calculateButton,
             title: "Calculated",
-            titleColor: #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1),
-            borderColor: #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
+            titleColor: ACTIVE_STATE_COLOR,
+            borderColor: ACTIVE_STATE_COLOR
         )
         
         updateButtonState(
@@ -345,28 +342,28 @@ private extension MainScreenViewController {
             totalPriceValueLabel,
             text: "USD",
             textColor: .tertiaryLabel,
-            borderColor: #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5)
+            borderColor: NOT_ACTIVE_STATE_COLOR
         )
         
         updateTextFieldState(
             priceTextField,
             withText: "",
             placeholder: "USD",
-            borderColor: #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5)
+            borderColor: NOT_ACTIVE_STATE_COLOR
         )
         
         updateTextFieldState(
             taxTextField,
             withText: "",
             placeholder: "%",
-            borderColor: #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5)
+            borderColor: NOT_ACTIVE_STATE_COLOR
         )
         
         updateButtonState(
             calculateButton,
             title: "Calculate",
-            titleColor: #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5),
-            borderColor: #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5)
+            titleColor: NOT_ACTIVE_STATE_COLOR,
+            borderColor: NOT_ACTIVE_STATE_COLOR
         )
         
         updateButtonState(
@@ -427,22 +424,36 @@ private extension MainScreenViewController {
 
 
 // MARK: - UI State Update Helpers
-
 extension MainScreenViewController {
     
-    func updateTextFieldState(_ textField: UITextField, withText text: String, placeholder: String = "", borderColor: UIColor) {
+    func updateTextFieldState(
+        _ textField: UITextField,
+        withText text: String,
+        placeholder: String = "",
+        borderColor: UIColor
+    ) {
         textField.text = text
         textField.placeholder = placeholder
         textField.layer.borderColor = borderColor.cgColor
     }
     
-    func updateButtonState(_ button: UIButton, title: String, titleColor: UIColor, borderColor: UIColor) {
+    func updateButtonState(
+        _ button: UIButton,
+        title: String,
+        titleColor: UIColor,
+        borderColor: UIColor
+    ) {
         button.setTitle(title, for: .normal)
         button.setTitleColor(titleColor, for: .normal)
         button.layer.borderColor = borderColor.cgColor
     }
     
-    func updateLabelState(_ label: UILabel, text: String, textColor: UIColor, borderColor: UIColor) {
+    func updateLabelState(
+        _ label: UILabel,
+        text: String,
+        textColor: UIColor,
+        borderColor: UIColor
+    ) {
         label.text = text
         label.textColor = textColor
         label.layer.borderColor = borderColor.cgColor
@@ -451,17 +462,16 @@ extension MainScreenViewController {
 
 
 // MARK: - UITextFieldDelegate
-
 extension MainScreenViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.layer.borderColor = #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1).cgColor
+        textField.layer.borderColor = ACTIVE_STATE_COLOR.cgColor
         textField.placeholder = nil
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text?.isEmpty == true {
-            textField.layer.borderColor = #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5).cgColor
+            textField.layer.borderColor = NOT_ACTIVE_STATE_COLOR.cgColor
             if textField == priceTextField {
                 textField.placeholder = "USD"
             } else if textField == taxTextField {
@@ -473,7 +483,6 @@ extension MainScreenViewController: UITextFieldDelegate {
 
 
 // MARK: - UIViewControllerTransitioningDelegate
-
 extension MainScreenViewController: UIViewControllerTransitioningDelegate {
     
     func presentationController(

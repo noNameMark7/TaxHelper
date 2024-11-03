@@ -2,8 +2,7 @@ import UIKit
 
 class InfoViewController: UIViewController {
 
-    // MARK: - Properties
-    
+    // MARK: - UI Components
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -75,7 +74,6 @@ class InfoViewController: UIViewController {
     }()
     
     // MARK: - Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
@@ -89,7 +87,6 @@ class InfoViewController: UIViewController {
 
 
 // MARK: - Initial setup
-
 private extension InfoViewController {
     
     func initialSetup() {

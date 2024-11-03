@@ -2,8 +2,7 @@ import UIKit
 
 class FAQViewController: UIViewController {
 
-    // MARK: - Properties
-    
+    // MARK: - UI Components
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -159,7 +158,6 @@ class FAQViewController: UIViewController {
     
     
     // MARK: - Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
@@ -173,7 +171,6 @@ class FAQViewController: UIViewController {
 
 
 // MARK: - Initial setup
-
 private extension FAQViewController {
     
     func initialSetup() {

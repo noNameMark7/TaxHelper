@@ -15,7 +15,7 @@ class MainScreenViewController: UIViewController {
     private let totalPriceValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "USD"
+        label.text = "﹩"
         label.layer.cornerRadius = 7
         label.layer.masksToBounds = true
         label.layer.borderWidth = 1.5
@@ -38,7 +38,7 @@ class MainScreenViewController: UIViewController {
     private let priceTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "USD"
+        textField.placeholder = "﹩"
         textField.textAlignment = .center
         textField.layer.cornerRadius = 7
         textField.layer.masksToBounds = true
@@ -61,7 +61,7 @@ class MainScreenViewController: UIViewController {
     private let taxTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "%"
+        textField.placeholder = "﹪"
         textField.textAlignment = .center
         textField.layer.cornerRadius = 7
         textField.layer.masksToBounds = true
@@ -86,47 +86,40 @@ class MainScreenViewController: UIViewController {
     }()
     
     private let selectStateButton: UIButton = {
-        let normalState = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Select state ‣", for: .normal)
-        button.setTitleColor(normalState, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        button.titleLabel?.font = FontManager.shared.labelFont(withSize: 20, withWeight: .bold)
+        button.setTitle("Pick a state ⠆", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .clear
+        button.titleLabel?.font = FontManager.shared.labelFont(withSize: 18, withWeight: .bold)
         button.layer.cornerRadius = 7
         button.layer.masksToBounds = true
         button.layer.borderWidth = 1.5
-        button.layer.borderColor = normalState.cgColor
+        button.layer.borderColor = UIColor.black.withAlphaComponent(0.2).cgColor
         return button
     }()
     
     private let calculateButton: UIButton = {
-        let stateNotActive = #colorLiteral(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 0.5)
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Calculate", for: .normal)
-        button.setTitleColor(stateNotActive, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        button.titleLabel?.font = FontManager.shared.labelFont(withSize: 20, withWeight: .bold)
+        button.setTitle("CALCULATE", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
+        button.titleLabel?.font = FontManager.shared.labelFont(withSize: 18, withWeight: .bold)
         button.layer.cornerRadius = 7
         button.layer.masksToBounds = true
-        button.layer.borderWidth = 1.5
-        button.layer.borderColor = stateNotActive.cgColor
         return button
     }()
     
     private let resetButton: UIButton = {
-        let baseColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 0.5036912122)
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Reset", for: .normal)
-        button.setTitleColor(baseColor, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        button.titleLabel?.font = FontManager.shared.labelFont(withSize: 20, withWeight: .bold)
+        button.setTitle("RESET", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+        button.titleLabel?.font = FontManager.shared.labelFont(withSize: 18, withWeight: .bold)
         button.layer.cornerRadius = 7
         button.layer.masksToBounds = true
-        button.layer.borderWidth = 1.5
-        button.layer.borderColor = baseColor.cgColor
         return button
     }()
     
@@ -134,6 +127,7 @@ class MainScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
+        resetButton.isHidden = true
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -205,12 +199,12 @@ private extension MainScreenViewController {
             selectStateButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: BASE_MULTIPLIER),
             selectStateButton.heightAnchor.constraint(equalToConstant: HEIGHT_ANCHOR),
             
-            calculateButton.topAnchor.constraint(equalTo: selectStateButton.bottomAnchor, constant: 30),
+            calculateButton.topAnchor.constraint(equalTo: selectStateButton.bottomAnchor, constant: 24),
             calculateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             calculateButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: BASE_MULTIPLIER),
             calculateButton.heightAnchor.constraint(equalToConstant: HEIGHT_ANCHOR),
             
-            resetButton.topAnchor.constraint(equalTo: calculateButton.bottomAnchor, constant: 16),
+            resetButton.topAnchor.constraint(equalTo: calculateButton.bottomAnchor, constant: 12),
             resetButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             resetButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: BASE_MULTIPLIER),
             resetButton.heightAnchor.constraint(equalToConstant: HEIGHT_ANCHOR),
@@ -222,8 +216,12 @@ private extension MainScreenViewController {
     func updateAppearance(for traitCollection: UITraitCollection) {
         if traitCollection.userInterfaceStyle == .dark {
             view.backgroundColor = DARK_APPEARANCE
+            selectStateButton.setTitleColor(.white, for: .normal)
+            selectStateButton.layer.borderColor = UIColor.white.cgColor
         } else {
             view.backgroundColor = LIGHT_APPEARANCE
+            selectStateButton.setTitleColor(.black, for: .normal)
+            selectStateButton.layer.borderColor = UIColor.black.withAlphaComponent(0.2).cgColor
         }
     }
     
@@ -280,7 +278,6 @@ private extension MainScreenViewController {
     }
     
     func stateSelection() {
-        
         let statePickerVC = StatePickerViewController()
         let nav = UINavigationController(rootViewController: statePickerVC)
         
@@ -297,8 +294,11 @@ private extension MainScreenViewController {
                 strongSelf.selectStateButton,
                 title: "\(state)",
                 titleColor: .black,
-                borderColor: .black
+                backgroundColor: .white
             )
+            self?.selectStateButton.layer.borderColor = UIColor.black.cgColor
+            
+            self?.resetButton.isHidden = false
         }
         
         nav.modalPresentationStyle = .custom
@@ -317,30 +317,30 @@ private extension MainScreenViewController {
         
         updateLabelState(
             totalPriceValueLabel,
-            text: String(format: "$%.2f", totalPrice),
+            text: String(format: "%.2f", totalPrice),
             textColor: .label,
             borderColor: ACTIVE_STATE_COLOR
         )
         
         updateButtonState(
             calculateButton,
-            title: "Calculated",
-            titleColor: ACTIVE_STATE_COLOR,
-            borderColor: ACTIVE_STATE_COLOR
+            title: "CALCULATED",
+            titleColor: .white,
+            backgroundColor: #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
         )
         
         updateButtonState(
             resetButton,
-            title: "Reset",
-            titleColor: #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1),
-            borderColor: #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+            title: "RESET",
+            titleColor: .white,
+            backgroundColor: #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
         )
     }
     
     func resetValues() {
         updateLabelState(
             totalPriceValueLabel,
-            text: "USD",
+            text: "﹩",
             textColor: .tertiaryLabel,
             borderColor: NOT_ACTIVE_STATE_COLOR
         )
@@ -348,37 +348,32 @@ private extension MainScreenViewController {
         updateTextFieldState(
             priceTextField,
             withText: "",
-            placeholder: "USD",
+            placeholder: "﹩",
             borderColor: NOT_ACTIVE_STATE_COLOR
         )
         
         updateTextFieldState(
             taxTextField,
             withText: "",
-            placeholder: "%",
+            placeholder: "﹪",
             borderColor: NOT_ACTIVE_STATE_COLOR
         )
         
         updateButtonState(
             calculateButton,
-            title: "Calculate",
-            titleColor: NOT_ACTIVE_STATE_COLOR,
-            borderColor: NOT_ACTIVE_STATE_COLOR
+            title: "CALCULATE",
+            titleColor: .white,
+            backgroundColor: #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
         )
         
         updateButtonState(
             selectStateButton,
-            title: "Select state ‣",
-            titleColor: UIColor.black.withAlphaComponent(0.5),
-            borderColor: UIColor.black.withAlphaComponent(0.5)
+            title: "Pick a state ⠆",
+            titleColor: UIColor.black,
+            backgroundColor: .clear
         )
-        
-        updateButtonState(
-            resetButton,
-            title: "Reset",
-            titleColor: #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 0.5036912122),
-            borderColor: #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 0.5036912122)
-        )
+        resetButton.isHidden = true
+        updateAppearance(for: traitCollection)
     }
     
     func addDoneButtonTo(_ textField: UITextField) {
@@ -441,11 +436,11 @@ extension MainScreenViewController {
         _ button: UIButton,
         title: String,
         titleColor: UIColor,
-        borderColor: UIColor
+        backgroundColor: UIColor
     ) {
         button.setTitle(title, for: .normal)
         button.setTitleColor(titleColor, for: .normal)
-        button.layer.borderColor = borderColor.cgColor
+        button.backgroundColor = backgroundColor
     }
     
     func updateLabelState(
@@ -467,15 +462,16 @@ extension MainScreenViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderColor = ACTIVE_STATE_COLOR.cgColor
         textField.placeholder = nil
+        resetButton.isHidden = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text?.isEmpty == true {
             textField.layer.borderColor = NOT_ACTIVE_STATE_COLOR.cgColor
             if textField == priceTextField {
-                textField.placeholder = "USD"
+                textField.placeholder = "﹩"
             } else if textField == taxTextField {
-                textField.placeholder = "%"
+                textField.placeholder = "﹪"
             }
         }
     }

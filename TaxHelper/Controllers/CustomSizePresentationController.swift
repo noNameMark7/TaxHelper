@@ -2,6 +2,15 @@ import UIKit
 
 class CustomSizePresentationController: UIPresentationController {
     
+    // MARK: - UI Components
+    private lazy var dimmingView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        view.alpha = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override var frameOfPresentedViewInContainerView: CGRect {
         guard let containerView = containerView else { return .zero }
         
@@ -13,7 +22,30 @@ class CustomSizePresentationController: UIPresentationController {
         return CGRect(x: x, y: y, width: width, height: height)
     }
     
-    /// Use presentationTransitionWillBegin method to
-    /// add animation or logic when window ready to appear or
-    /// dismissalTransitionWillBegin when dismiss
+    override func presentationTransitionWillBegin() {
+        guard let containerView = containerView else { return }
+        
+        // Add dimming view
+        containerView.addSubview(dimmingView)
+        NSLayoutConstraint.activate([
+            dimmingView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            dimmingView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            dimmingView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            dimmingView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+        ])
+        
+        // Animate the dimming view with the transition
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { _ in
+            self.dimmingView.alpha = 1
+        })
+    }
+    
+    override func dismissalTransitionWillBegin() {
+        // Fade out the dimming view during dismissal
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { _ in
+            self.dimmingView.alpha = 0
+        }, completion: { _ in
+            self.dimmingView.removeFromSuperview()
+        })
+    }
 }

@@ -72,32 +72,22 @@
 		4D8624CA2CB873A800DF3BC7 /* TaxHelper */ = {
 			isa = PBXGroup;
 			children = (
-				4DE379942CC935BC0029E5FA /* Resources */,
+				4DBF9DB92D02577800D8E290 /* Resources */,
+				4DD5EC552CDBF68500C6D256 /* Supporting files */,
 				4D8624E62CB874BB00DF3BC7 /* Utilities */,
 				4D8624E52CB874B000DF3BC7 /* Controllers */,
-				4D8624E42CB874A100DF3BC7 /* Models */,
-				4D8624DF2CB873F500DF3BC7 /* AppDelegates */,
-				4D8624D92CB873AA00DF3BC7 /* Info.plist */,
+				4D8624E42CB874A100DF3BC7 /* Model */,
 				4D8624E22CB8748D00DF3BC7 /* state_taxes.json */,
 			);
 			path = TaxHelper;
 			sourceTree = "<group>";
 		};
-		4D8624DF2CB873F500DF3BC7 /* AppDelegates */ = {
-			isa = PBXGroup;
-			children = (
-				4D8624CB2CB873A800DF3BC7 /* AppDelegate.swift */,
-				4D8624CD2CB873A800DF3BC7 /* SceneDelegate.swift */,
-			);
-			path = AppDelegates;
-			sourceTree = "<group>";
-		};
-		4D8624E42CB874A100DF3BC7 /* Models */ = {
+		4D8624E42CB874A100DF3BC7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				4D8624EB2CB8755900DF3BC7 /* StateTax.swift */,
 			);
-			path = Models;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		4D8624E52CB874B000DF3BC7 /* Controllers */ = {
@@ -122,13 +112,39 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		4DE379942CC935BC0029E5FA /* Resources */ = {
+		4DBF9DB92D02577800D8E290 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4DBF9DBB2D02579500D8E290 /* Storyboard */,
+				4DBF9DBA2D02578200D8E290 /* Assets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4DBF9DBA2D02578200D8E290 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				4D8624D42CB873AA00DF3BC7 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		4DBF9DBB2D02579500D8E290 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
 				4D8624D62CB873AA00DF3BC7 /* LaunchScreen.storyboard */,
-				4D8624D42CB873AA00DF3BC7 /* Assets.xcassets */,
 			);
-			path = Resources;
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		4DD5EC552CDBF68500C6D256 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				4D8624CB2CB873A800DF3BC7 /* AppDelegate.swift */,
+				4D8624CD2CB873A800DF3BC7 /* SceneDelegate.swift */,
+				4D8624D92CB873AA00DF3BC7 /* Info.plist */,
+			);
+			name = "Supporting files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

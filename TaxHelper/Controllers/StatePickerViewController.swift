@@ -66,7 +66,7 @@ private extension StatePickerViewController {
         if traitCollection.userInterfaceStyle == .dark {
             view.backgroundColor = DARK_APPEARANCE
         } else {
-            view.backgroundColor = LIGHT_APPEARANCE
+            view.backgroundColor = ANY_APPEARANCE
         }
     }
     

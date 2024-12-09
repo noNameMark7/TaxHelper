@@ -160,7 +160,7 @@ private extension InfoViewController {
             designationsTextView.backgroundColor = #colorLiteral(red: 0.2433706357, green: 0.2505630392, blue: 0.2873807403, alpha: 1)
             salesTaxDefinitionTextView.backgroundColor = #colorLiteral(red: 0.2433706357, green: 0.2505630392, blue: 0.2873807403, alpha: 1)
         } else {
-            view.backgroundColor = LIGHT_APPEARANCE
+            view.backgroundColor = ANY_APPEARANCE
             
         }
     }

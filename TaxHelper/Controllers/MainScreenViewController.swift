@@ -219,7 +219,7 @@ private extension MainScreenViewController {
             selectStateButton.setTitleColor(.white, for: .normal)
             selectStateButton.layer.borderColor = UIColor.white.cgColor
         } else {
-            view.backgroundColor = LIGHT_APPEARANCE
+            view.backgroundColor = ANY_APPEARANCE
             selectStateButton.setTitleColor(.black, for: .normal)
             selectStateButton.layer.borderColor = UIColor.black.withAlphaComponent(0.2).cgColor
         }
@@ -287,7 +287,7 @@ private extension MainScreenViewController {
             strongSelf.updateTextFieldState(
                 strongSelf.taxTextField,
                 withText: "\(taxRate)",
-                borderColor: ACTIVE_STATE_COLOR
+                borderColor: ACTIVE_TEXTFIELD
             )
             
             strongSelf.updateButtonState(
@@ -319,7 +319,7 @@ private extension MainScreenViewController {
             totalPriceValueLabel,
             text: String(format: "%.2f", totalPrice),
             textColor: .label,
-            borderColor: ACTIVE_STATE_COLOR
+            borderColor: ACTIVE_TEXTFIELD
         )
         
         updateButtonState(
@@ -342,21 +342,21 @@ private extension MainScreenViewController {
             totalPriceValueLabel,
             text: "﹩",
             textColor: .tertiaryLabel,
-            borderColor: NOT_ACTIVE_STATE_COLOR
+            borderColor: EMPTY_TEXTFIELD
         )
         
         updateTextFieldState(
             priceTextField,
             withText: "",
             placeholder: "﹩",
-            borderColor: NOT_ACTIVE_STATE_COLOR
+            borderColor: EMPTY_TEXTFIELD
         )
         
         updateTextFieldState(
             taxTextField,
             withText: "",
             placeholder: "﹪",
-            borderColor: NOT_ACTIVE_STATE_COLOR
+            borderColor: EMPTY_TEXTFIELD
         )
         
         updateButtonState(
@@ -460,14 +460,14 @@ extension MainScreenViewController {
 extension MainScreenViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.layer.borderColor = ACTIVE_STATE_COLOR.cgColor
+        textField.layer.borderColor = ACTIVE_TEXTFIELD.cgColor
         textField.placeholder = nil
         resetButton.isHidden = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text?.isEmpty == true {
-            textField.layer.borderColor = NOT_ACTIVE_STATE_COLOR.cgColor
+            textField.layer.borderColor = EMPTY_TEXTFIELD.cgColor
             if textField == priceTextField {
                 textField.placeholder = "﹩"
             } else if textField == taxTextField {

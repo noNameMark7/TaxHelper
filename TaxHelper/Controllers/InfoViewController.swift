@@ -1,7 +1,7 @@
 import UIKit
 
 class InfoViewController: UIViewController {
-
+    
     // MARK: - UI Components
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -37,7 +37,7 @@ class InfoViewController: UIViewController {
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         textView.textAlignment = .left
         textView.textColor = .label
-        textView.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+        textView.backgroundColor = .systemBackground
         textView.text = """
         Net price - the price of the product before the sales tax is applied.\n
         Sales tax - the sales tax that the government charges on the retail price of a product.\n
@@ -68,7 +68,7 @@ class InfoViewController: UIViewController {
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         textView.textAlignment = .left
         textView.textColor = .label
-        textView.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+        textView.backgroundColor = .systemBackground
         textView.text = """
         Sales tax is a consumption-based tax that is indirectly charged on the consumer at the point of final purchase of a good or service.The indirect feature of the tax means that the consumer bears the burden of the tax, however it's collected and transferred to authorities by the seller. The most popular type of sales tax is the retail sales tax which is present on state-level in the United States. Under such a taxation framework, consumers pay the price of the item plus the amount of the sales tax which is collected by the store at the cash register and printed on the receipt. In the next section, you can get more insight into its concept as we illustrate the difference between the sales tax and value-added tax.
         """
@@ -78,31 +78,34 @@ class InfoViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        initialSetup()
+        setupUI()
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         updateAppearance(for: traitCollection)
     }
 }
 
-
-// MARK: - Initial setup
+// MARK: - UI Setup
 private extension InfoViewController {
     
-    func initialSetup() {
-        configureUI()
+    func setupUI() {
+        setupConstraints()
         configureNavigationBar()
     }
     
-    func configureUI() {
+    func setupConstraints() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubview(designationsLabel)
-        contentView.addSubview(designationsTextView)
-        contentView.addSubview(salesTaxDefinitionLabel)
-        contentView.addSubview(salesTaxDefinitionTextView)
+        
+        let components = [
+            designationsLabel,
+            designationsTextView,
+            salesTaxDefinitionLabel,
+            salesTaxDefinitionTextView
+        ]
+        components.forEach { contentView.addSubview($0) }
         
         let scrollViewConstraints = [
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -150,19 +153,6 @@ private extension InfoViewController {
         NSLayoutConstraint.activate(salesTaxDefinitionTextViewConstraints)
         
         scrollView.contentSize = contentView.bounds.size
-        
-        updateAppearance(for: traitCollection)
-    }
-    
-    func updateAppearance(for traitCollection: UITraitCollection) {
-        if traitCollection.userInterfaceStyle == .dark {
-            view.backgroundColor = DARK_APPEARANCE
-            designationsTextView.backgroundColor = #colorLiteral(red: 0.2433706357, green: 0.2505630392, blue: 0.2873807403, alpha: 1)
-            salesTaxDefinitionTextView.backgroundColor = #colorLiteral(red: 0.2433706357, green: 0.2505630392, blue: 0.2873807403, alpha: 1)
-        } else {
-            view.backgroundColor = ANY_APPEARANCE
-            
-        }
     }
     
     func configureNavigationBar() {
@@ -177,5 +167,25 @@ private extension InfoViewController {
     
     @objc func didTappedDoneButton() {
         dismiss(animated: true)
+    }
+    
+    func updateAppearance(for traitCollection: UITraitCollection) {
+        if traitCollection.userInterfaceStyle == .dark {
+            view.backgroundColor = .black
+            [
+                designationsTextView,
+                salesTaxDefinitionTextView
+            ].forEach { component in
+                component.backgroundColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
+            }
+        } else {
+            view.backgroundColor = .white
+            [
+                designationsTextView,
+                salesTaxDefinitionTextView
+            ].forEach { component in
+                component.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            }
+        }
     }
 }

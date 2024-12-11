@@ -17,7 +17,7 @@ class StatePickerViewController: UIViewController {
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
-        initialSetup()
+        setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,33 +41,22 @@ class StatePickerViewController: UIViewController {
 }
 
 
-// MARK: - Initial setup
+// MARK: - UI Setup
 private extension StatePickerViewController {
     
-    func initialSetup() {
-        configureUI()
+    func setupUI() {
+        view.addSubview(statePickerView)
+        setupConstraints()
         configureNavigationBar()
         settingDelegate()
     }
     
-    func configureUI() {
-        view.addSubview(statePickerView)
-        
-        NSLayoutConstraint.activate([
-            statePickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            statePickerView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            statePickerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7)
-        ])
-        
-        updateAppearance(for: traitCollection)
-    }
-    
-    func updateAppearance(for traitCollection: UITraitCollection) {
-        if traitCollection.userInterfaceStyle == .dark {
-            view.backgroundColor = DARK_APPEARANCE
-        } else {
-            view.backgroundColor = ANY_APPEARANCE
-        }
+    func setupConstraints() {
+        statePickerView.setConstraint(
+            top: view.layoutMarginsGuide.topAnchor,
+            centerX: view.centerXAnchor,
+            widthMultiplier: 0.7
+        )
     }
     
     func configureNavigationBar() {
@@ -91,10 +80,22 @@ private extension StatePickerViewController {
         statePickerView.dataSource = self
     }
     
+    func updateAppearance(for traitCollection: UITraitCollection) {
+        if traitCollection.userInterfaceStyle == .dark {
+            view.backgroundColor = .black
+        } else {
+            view.backgroundColor = .white
+        }
+    }
+}
+
+
+// MARK: - Actions
+private extension StatePickerViewController {
+    
     @objc func didTappedSaveButton() {
         let selectedRow = statePickerView.selectedRow(inComponent: 0)
         let selectedState = stateTaxes[selectedRow]
-        print("\(selectedState.taxRate) % tax in \(selectedState.state)")
         didSelectStateTax?(selectedState.taxRate, selectedState.state)
         dismiss(animated: true)
     }
@@ -128,7 +129,6 @@ extension StatePickerViewController {
     func loadValuesFromJSON() {
         if let loadedStateTaxes = loadStateTaxes() {
             stateTaxes = loadedStateTaxes
-            print("Loaded state taxes: \(stateTaxes)")
         } else {
             print("Failed to load state taxes.")
         }

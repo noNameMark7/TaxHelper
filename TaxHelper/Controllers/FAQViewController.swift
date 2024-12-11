@@ -165,39 +165,41 @@ class FAQViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        initialSetup()
+        setupUI()
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         updateAppearance(for: traitCollection)
     }
 }
 
 
-// MARK: - Initial setup
+// MARK: - UI Setup
 private extension FAQViewController {
     
-    func initialSetup() {
-        configureUI()
+    func setupUI() {
+        setupConstraints()
         configureNavigationBar()
     }
     
-    func configureUI() {
-        view.backgroundColor = .systemGray6
-
+    func setupConstraints() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubview(firstQuestionLabel)
-        contentView.addSubview(firstQuestionTextView)
-        contentView.addSubview(secondQuestionLabel)
-        contentView.addSubview(secondQuestionTextView)
-        contentView.addSubview(thirdQuestionLabel)
-        contentView.addSubview(thirdQuestionTextView)
-        contentView.addSubview(fourthQuestionLabel)
-        contentView.addSubview(fourthQuestionTextView)
-        contentView.addSubview(fifthQuestionLabel)
-        contentView.addSubview(fifthQuestionTextView)
+        
+        let components = [
+            firstQuestionLabel,
+            firstQuestionTextView,
+            secondQuestionLabel,
+            secondQuestionTextView,
+            thirdQuestionLabel,
+            thirdQuestionTextView,
+            fourthQuestionLabel,
+            fourthQuestionTextView,
+            fifthQuestionLabel,
+            fifthQuestionTextView
+        ]
+        components.forEach { contentView.addSubview($0) }
         
         let scrollViewConstraints = [
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -293,22 +295,6 @@ private extension FAQViewController {
         NSLayoutConstraint.activate(fifthQuestionTextViewConstraints)
         
         scrollView.contentSize = contentView.bounds.size
-        
-        updateAppearance(for: traitCollection)
-    }
-    
-    func updateAppearance(for traitCollection: UITraitCollection) {
-        if traitCollection.userInterfaceStyle == .dark {
-            view.backgroundColor = DARK_APPEARANCE
-            firstQuestionTextView.backgroundColor = #colorLiteral(red: 0.2433706357, green: 0.2505630392, blue: 0.2873807403, alpha: 1)
-            secondQuestionTextView.backgroundColor = #colorLiteral(red: 0.2433706357, green: 0.2505630392, blue: 0.2873807403, alpha: 1)
-            thirdQuestionTextView.backgroundColor = #colorLiteral(red: 0.2433706357, green: 0.2505630392, blue: 0.2873807403, alpha: 1)
-            fourthQuestionTextView.backgroundColor = #colorLiteral(red: 0.2433706357, green: 0.2505630392, blue: 0.2873807403, alpha: 1)
-            fifthQuestionTextView.backgroundColor = #colorLiteral(red: 0.2433706357, green: 0.2505630392, blue: 0.2873807403, alpha: 1)
-        } else {
-            view.backgroundColor = ANY_APPEARANCE
-            
-        }
     }
     
     func configureNavigationBar() {
@@ -323,5 +309,31 @@ private extension FAQViewController {
     
     @objc func didTappedDoneButton() {
         dismiss(animated: true)
+    }
+    
+    func updateAppearance(for traitCollection: UITraitCollection) {
+        if traitCollection.userInterfaceStyle == .dark {
+            view.backgroundColor = .black
+            [
+                firstQuestionTextView,
+                secondQuestionTextView,
+                thirdQuestionTextView,
+                fourthQuestionTextView,
+                fifthQuestionTextView
+            ].forEach { component in
+                component.backgroundColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
+            }
+        } else {
+            view.backgroundColor = .white
+            [
+                firstQuestionTextView,
+                secondQuestionTextView,
+                thirdQuestionTextView,
+                fourthQuestionTextView,
+                fifthQuestionTextView
+            ].forEach { component in
+                component.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+            }
+        }
     }
 }

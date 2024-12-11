@@ -18,7 +18,7 @@ class InfoViewController: UIViewController {
     private let designationsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Designations"
+        label.text = TextValues.designationLabel.rawValue
         label.font = FontManager.shared.labelFont(withSize: 19, withWeight: .bold)
         label.textAlignment = .left
         label.textColor = .label
@@ -28,6 +28,7 @@ class InfoViewController: UIViewController {
     private let designationsTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.text = TextValues.designationText.rawValue
         textView.font = FontManager.shared.labelFont(withSize: 16)
         textView.textContainer.lineBreakMode = .byWordWrapping
         textView.isEditable = false
@@ -38,18 +39,13 @@ class InfoViewController: UIViewController {
         textView.textAlignment = .left
         textView.textColor = .label
         textView.backgroundColor = .systemBackground
-        textView.text = """
-        Net price - the price of the product before the sales tax is applied.\n
-        Sales tax - the sales tax that the government charges on the retail price of a product.\n
-        Gross price - the price of the product after the sales tax is applied.
-        """
         return textView
     }()
     
     private let salesTaxDefinitionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Sales tax definition"
+        label.text = TextValues.salesTaxDefinitionLabel.rawValue
         label.font = FontManager.shared.labelFont(withSize: 19, withWeight: .bold)
         label.textAlignment = .left
         label.textColor = .label
@@ -59,6 +55,7 @@ class InfoViewController: UIViewController {
     private let salesTaxDefinitionTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.text = TextValues.salesTaxDefinitionText.rawValue
         textView.font = FontManager.shared.labelFont(withSize: 16)
         textView.textContainer.lineBreakMode = .byWordWrapping
         textView.isEditable = false
@@ -69,9 +66,6 @@ class InfoViewController: UIViewController {
         textView.textAlignment = .left
         textView.textColor = .label
         textView.backgroundColor = .systemBackground
-        textView.text = """
-        Sales tax is a consumption-based tax that is indirectly charged on the consumer at the point of final purchase of a good or service.The indirect feature of the tax means that the consumer bears the burden of the tax, however it's collected and transferred to authorities by the seller. The most popular type of sales tax is the retail sales tax which is present on state-level in the United States. Under such a taxation framework, consumers pay the price of the item plus the amount of the sales tax which is collected by the store at the cash register and printed on the receipt. In the next section, you can get more insight into its concept as we illustrate the difference between the sales tax and value-added tax.
-        """
         return textView
     }()
     

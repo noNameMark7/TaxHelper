@@ -35,6 +35,8 @@ extension UIView {
         height: CGFloat? = nil,
         heightMultiplier: CGFloat = 0
     ) {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        
         if let top = top {
             self.topAnchor.constraint(equalTo: top, constant: topConstant).isActive = true
         }

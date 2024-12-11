@@ -15,19 +15,20 @@ class FAQViewController: UIViewController {
         return contentView
     }()
     
-    private let firstQuestionLabel: UILabel = {
+    private let howToCalculateItLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "How to calculate it?"
+        label.text = TextValues.howToCalculateItLabel.rawValue
         label.font = FontManager.shared.labelFont(withSize: 19, withWeight: .bold)
         label.textAlignment = .left
         label.textColor = .label
         return label
     }()
     
-    private let firstQuestionTextView: UITextView = {
+    private let howToCalculateItTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.text = TextValues.howToCalculateItTextView.rawValue
         textView.font = FontManager.shared.labelFont(withSize: 16)
         textView.textContainer.lineBreakMode = .byWordWrapping
         textView.isEditable = false
@@ -37,28 +38,23 @@ class FAQViewController: UIViewController {
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         textView.textAlignment = .left
         textView.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-        textView.text = """
-        1. Find out the sales tax rate, an example will be the state of Oklahoma, in which 4.5%.\n
-        2. Find out the net price of a product. Let's use $1299.\n
-        3. Multiply your net price by 4.5%, so by 0.045, to find out the tax amount: 1299 * 0.045 = 58.45.\n
-        4. Add the tax amount to the net price to find out the gross price: 1299 + 58.45 = 1357.45.
-        """
         return textView
     }()
     
-    private let secondQuestionLabel: UILabel = {
+    private let whatStatesDonotHaveItLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "What states don’t have it?"
+        label.text = TextValues.whatStatesDonotHaveItLabel.rawValue
         label.font = FontManager.shared.labelFont(withSize: 19, withWeight: .bold)
         label.textAlignment = .left
         label.textColor = .label
         return label
     }()
     
-    private let secondQuestionTextView: UITextView = {
+    private let whatStatesDonotHaveItTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.text = TextValues.whatStatesDonotHaveItTextView.rawValue
         textView.font = FontManager.shared.labelFont(withSize: 16)
         textView.textContainer.lineBreakMode = .byWordWrapping
         textView.isEditable = false
@@ -68,25 +64,23 @@ class FAQViewController: UIViewController {
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         textView.textAlignment = .left
         textView.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-        textView.text = """
-        Alaska, Delaware, Montana, New Hampshire and Oregon all do not have a statewide sales tax, although Alaska and Montana both allow local sales taxes. Delaware also imposes a gross receipts tax on businesses. Some other states have not taxes on food and other items.
-        """
         return textView
     }()
     
-    private let thirdQuestionLabel: UILabel = {
+    private let isItRegressiveLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Is it regressive?"
+        label.text = TextValues.isItRegressiveLabel.rawValue
         label.font = FontManager.shared.labelFont(withSize: 19, withWeight: .bold)
         label.textAlignment = .left
         label.textColor = .label
         return label
     }()
     
-    private let thirdQuestionTextView: UITextView = {
+    private let isItRegressiveTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.text = TextValues.isItRegressiveTextView.rawValue
         textView.font = FontManager.shared.labelFont(withSize: 16)
         textView.textContainer.lineBreakMode = .byWordWrapping
         textView.isEditable = false
@@ -96,16 +90,13 @@ class FAQViewController: UIViewController {
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         textView.textAlignment = .left
         textView.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-        textView.text = """
-        Yes, sales taxes are regressive. They are charged as a percentage of the sale price, and therefore are the same regardless of your income. This means that a poorer person pays a larger percent of their income.
-        """
         return textView
     }()
     
-    private let fourthQuestionLabel: UILabel = {
+    private let isMyBusinessRequiredToCollectItLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Is my business required to collect it?"
+        label.text = TextValues.isMyBusinessRequiredToCollectIt.rawValue
         label.font = FontManager.shared.labelFont(withSize: 19, withWeight: .bold)
         label.textAlignment = .left
         label.textColor = .label
@@ -113,9 +104,10 @@ class FAQViewController: UIViewController {
         return label
     }()
     
-    private let fourthQuestionTextView: UITextView = {
+    private let isMyBusinessRequiredToCollectItTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.text = TextValues.isMyBusinessRequiredToCollectItTextView.rawValue
         textView.font = FontManager.shared.labelFont(withSize: 16)
         textView.textContainer.lineBreakMode = .byWordWrapping
         textView.isEditable = false
@@ -125,17 +117,13 @@ class FAQViewController: UIViewController {
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         textView.textAlignment = .left
         textView.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-        textView.text = """
-        If you’re selling tangible goods that are not exempt from sales tax (such as groceries), you more than likely have to collect sales tax. If you’re selling a service, such as house cleaning or legal work, that will depend on your state’s specific laws.\n
-        If you’re selling goods online, you are typically required to collect sales tax from wherever your business is located.
-        """
         return textView
     }()
     
-    private let fifthQuestionLabel: UILabel = {
+    private let whatHappensIfIDonotCollectItLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "What happens if I don't collect it?"
+        label.text = TextValues.whatHappensIfIDonotCollectIt.rawValue
         label.font = FontManager.shared.labelFont(withSize: 19, withWeight: .bold)
         label.textAlignment = .left
         label.textColor = .label
@@ -143,9 +131,10 @@ class FAQViewController: UIViewController {
         return label
     }()
     
-    private let fifthQuestionTextView: UITextView = {
+    private let whatHappensIfIDonotCollectItTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.text = TextValues.whatHappensIfIDonotCollectItTextView.rawValue
         textView.font = FontManager.shared.labelFont(withSize: 16)
         textView.textContainer.lineBreakMode = .byWordWrapping
         textView.isEditable = false
@@ -155,9 +144,6 @@ class FAQViewController: UIViewController {
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         textView.textAlignment = .left
         textView.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-        textView.text = """
-        If you were supposed to collect sales tax and didn’t, you could be looking at high financial penalties and interest. Those rates will depend on your state. You could also potentially face criminal charges or lose your vendor license.
-        """
         return textView
     }()
     
@@ -188,16 +174,16 @@ private extension FAQViewController {
         scrollView.addSubview(contentView)
         
         let components = [
-            firstQuestionLabel,
-            firstQuestionTextView,
-            secondQuestionLabel,
-            secondQuestionTextView,
-            thirdQuestionLabel,
-            thirdQuestionTextView,
-            fourthQuestionLabel,
-            fourthQuestionTextView,
-            fifthQuestionLabel,
-            fifthQuestionTextView
+            howToCalculateItLabel,
+            howToCalculateItTextView,
+            whatStatesDonotHaveItLabel,
+            whatStatesDonotHaveItTextView,
+            isItRegressiveLabel,
+            isItRegressiveTextView,
+            isMyBusinessRequiredToCollectItLabel,
+            isMyBusinessRequiredToCollectItTextView,
+            whatHappensIfIDonotCollectItLabel,
+            whatHappensIfIDonotCollectItTextView
         ]
         components.forEach { contentView.addSubview($0) }
         
@@ -217,63 +203,63 @@ private extension FAQViewController {
         ]
         
         let firstQuestionLabelConstraints = [
-            firstQuestionLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 8),
-            firstQuestionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            firstQuestionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            howToCalculateItLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 8),
+            howToCalculateItLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            howToCalculateItLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ]
         
         let firstQuestionTextViewConstraints = [
-            firstQuestionTextView.topAnchor.constraint(equalTo: firstQuestionLabel.bottomAnchor, constant: 8),
-            firstQuestionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            firstQuestionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            howToCalculateItTextView.topAnchor.constraint(equalTo: howToCalculateItLabel.bottomAnchor, constant: 8),
+            howToCalculateItTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            howToCalculateItTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ]
         
         let secondQuestionLabelConstraints = [
-            secondQuestionLabel.topAnchor.constraint(equalTo: firstQuestionTextView.bottomAnchor, constant: 24),
-            secondQuestionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            secondQuestionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            whatStatesDonotHaveItLabel.topAnchor.constraint(equalTo: howToCalculateItTextView.bottomAnchor, constant: 24),
+            whatStatesDonotHaveItLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            whatStatesDonotHaveItLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ]
         
         let secondQuestionTextViewConstraints = [
-            secondQuestionTextView.topAnchor.constraint(equalTo: secondQuestionLabel.bottomAnchor, constant: 8),
-            secondQuestionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            secondQuestionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            whatStatesDonotHaveItTextView.topAnchor.constraint(equalTo: whatStatesDonotHaveItLabel.bottomAnchor, constant: 8),
+            whatStatesDonotHaveItTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            whatStatesDonotHaveItTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ]
         
         let thirdQuestionLabelConstraints = [
-            thirdQuestionLabel.topAnchor.constraint(equalTo: secondQuestionTextView.bottomAnchor, constant: 24),
-            thirdQuestionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+            isItRegressiveLabel.topAnchor.constraint(equalTo: whatStatesDonotHaveItTextView.bottomAnchor, constant: 24),
+            isItRegressiveLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ]
         
         let thirdQuestionTextViewConstraints = [
-            thirdQuestionTextView.topAnchor.constraint(equalTo: thirdQuestionLabel.bottomAnchor, constant: 8),
-            thirdQuestionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            thirdQuestionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            isItRegressiveTextView.topAnchor.constraint(equalTo: isItRegressiveLabel.bottomAnchor, constant: 8),
+            isItRegressiveTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            isItRegressiveTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ]
         
         let fourthQuestionLabelConstraints = [
-            fourthQuestionLabel.topAnchor.constraint(equalTo: thirdQuestionTextView.bottomAnchor, constant: 24),
-            fourthQuestionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            fourthQuestionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            isMyBusinessRequiredToCollectItLabel.topAnchor.constraint(equalTo: isItRegressiveTextView.bottomAnchor, constant: 24),
+            isMyBusinessRequiredToCollectItLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            isMyBusinessRequiredToCollectItLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ]
         
         let fourthQuestionTextViewConstraints = [
-            fourthQuestionTextView.topAnchor.constraint(equalTo: fourthQuestionLabel.bottomAnchor, constant: 8),
-            fourthQuestionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            fourthQuestionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            isMyBusinessRequiredToCollectItTextView.topAnchor.constraint(equalTo: isMyBusinessRequiredToCollectItLabel.bottomAnchor, constant: 8),
+            isMyBusinessRequiredToCollectItTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            isMyBusinessRequiredToCollectItTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ]
         
         let fifthQuestionLabelConstraints = [
-            fifthQuestionLabel.topAnchor.constraint(equalTo: fourthQuestionTextView.bottomAnchor, constant: 24),
-            fifthQuestionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            fifthQuestionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            whatHappensIfIDonotCollectItLabel.topAnchor.constraint(equalTo: isMyBusinessRequiredToCollectItTextView.bottomAnchor, constant: 24),
+            whatHappensIfIDonotCollectItLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            whatHappensIfIDonotCollectItLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ]
         
         let fifthQuestionTextViewConstraints = [
-            fifthQuestionTextView.topAnchor.constraint(equalTo: fifthQuestionLabel.bottomAnchor, constant: 8),
-            fifthQuestionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            fifthQuestionTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-            fifthQuestionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            whatHappensIfIDonotCollectItTextView.topAnchor.constraint(equalTo: whatHappensIfIDonotCollectItLabel.bottomAnchor, constant: 8),
+            whatHappensIfIDonotCollectItTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            whatHappensIfIDonotCollectItTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            whatHappensIfIDonotCollectItTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ]
         
         NSLayoutConstraint.activate(scrollViewConstraints)
@@ -315,22 +301,22 @@ private extension FAQViewController {
         if traitCollection.userInterfaceStyle == .dark {
             view.backgroundColor = .black
             [
-                firstQuestionTextView,
-                secondQuestionTextView,
-                thirdQuestionTextView,
-                fourthQuestionTextView,
-                fifthQuestionTextView
+                howToCalculateItTextView,
+                whatStatesDonotHaveItTextView,
+                isItRegressiveTextView,
+                isMyBusinessRequiredToCollectItTextView,
+                whatHappensIfIDonotCollectItTextView
             ].forEach { component in
                 component.backgroundColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
             }
         } else {
             view.backgroundColor = .white
             [
-                firstQuestionTextView,
-                secondQuestionTextView,
-                thirdQuestionTextView,
-                fourthQuestionTextView,
-                fifthQuestionTextView
+                howToCalculateItTextView,
+                whatStatesDonotHaveItTextView,
+                isItRegressiveTextView,
+                isMyBusinessRequiredToCollectItTextView,
+                whatHappensIfIDonotCollectItTextView
             ].forEach { component in
                 component.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
             }

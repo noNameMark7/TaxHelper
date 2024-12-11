@@ -20,6 +20,7 @@
 		4D8624F02CB8760A00DF3BC7 /* StatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8624EF2CB8760A00DF3BC7 /* StatePickerViewController.swift */; };
 		4D8624F22CB8766200DF3BC7 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8624F12CB8766200DF3BC7 /* InfoViewController.swift */; };
 		4D8624F42CB8767F00DF3BC7 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8624F32CB8767F00DF3BC7 /* FAQViewController.swift */; };
+		4D943F1A2D0A07D700FA087E /* TextValuesEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D943F192D0A07D700FA087E /* TextValuesEnum.swift */; };
 		4DE379932CC6E5290029E5FA /* CustomSizePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE379922CC6E5290029E5FA /* CustomSizePresentationController.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		4D8624EF2CB8760A00DF3BC7 /* StatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatePickerViewController.swift; sourceTree = "<group>"; };
 		4D8624F12CB8766200DF3BC7 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		4D8624F32CB8767F00DF3BC7 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
+		4D943F192D0A07D700FA087E /* TextValuesEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextValuesEnum.swift; sourceTree = "<group>"; };
 		4DE379922CC6E5290029E5FA /* CustomSizePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSizePresentationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +110,7 @@
 				4D8624E72CB874E000DF3BC7 /* FontManager.swift */,
 				4D8624E92CB874F100DF3BC7 /* Extensions.swift */,
 				4D277FF22CC1A8A8005E76F9 /* Constants.swift */,
+				4D943F192D0A07D700FA087E /* TextValuesEnum.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 				4D277FF32CC1A8A9005E76F9 /* Constants.swift in Sources */,
 				4D8624EA2CB874F100DF3BC7 /* Extensions.swift in Sources */,
 				4D8624F42CB8767F00DF3BC7 /* FAQViewController.swift in Sources */,
+				4D943F1A2D0A07D700FA087E /* TextValuesEnum.swift in Sources */,
 				4D8624F22CB8766200DF3BC7 /* InfoViewController.swift in Sources */,
 				4D8624EE2CB875B700DF3BC7 /* MainScreenViewController.swift in Sources */,
 			);

@@ -37,3 +37,14 @@ enum TextValues: String {
         If you were supposed to collect sales tax and didn’t, you could be looking at high financial penalties and interest. Those rates will depend on your state. You could also potentially face criminal charges or lose your vendor license.
         """
 }
+
+enum LayoutConstants {
+    static let baseHeight: CGFloat = 36
+    static let baseMultiplier: CGFloat = 0.6
+    static let heightAnchor: CGFloat = 40
+}
+
+enum UIState {
+    case normal
+    case calculate(_ totalPrice: String)
+}

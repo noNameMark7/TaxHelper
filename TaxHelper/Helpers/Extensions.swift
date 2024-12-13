@@ -1,5 +1,6 @@
 import UIKit
 
+// MARK: - Insets for labels
 class PaddedLabel: UILabel {
     var textInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
 
@@ -16,6 +17,7 @@ class PaddedLabel: UILabel {
     }
 }
 
+// MARK: - Setup constraints
 extension UIView {
     func setConstraint(
         top: NSLayoutYAxisAnchor? = nil,
@@ -73,4 +75,10 @@ extension UIView {
             self.heightAnchor.constraint(equalTo: self.superview!.heightAnchor, multiplier: heightMultiplier).isActive = true
         }
     }
+}
+
+// MARK: - Colors
+extension UIColor {
+    static let activeField = UIColor(named: "ActiveFieldColor") ?? .systemPurple
+    static let inactiveField = UIColor(named: "InactiveFieldColor") ?? .systemGray
 }

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4D277FF32CC1A8A9005E76F9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D277FF22CC1A8A8005E76F9 /* Constants.swift */; };
+		4D22E52E2D0B6969003270B1 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22E52D2D0B6969003270B1 /* MainScreenView.swift */; };
 		4D8624CC2CB873A800DF3BC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8624CB2CB873A800DF3BC7 /* AppDelegate.swift */; };
 		4D8624CE2CB873A800DF3BC7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8624CD2CB873A800DF3BC7 /* SceneDelegate.swift */; };
 		4D8624D52CB873AA00DF3BC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D8624D42CB873AA00DF3BC7 /* Assets.xcassets */; };
@@ -20,12 +20,12 @@
 		4D8624F02CB8760A00DF3BC7 /* StatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8624EF2CB8760A00DF3BC7 /* StatePickerViewController.swift */; };
 		4D8624F22CB8766200DF3BC7 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8624F12CB8766200DF3BC7 /* InfoViewController.swift */; };
 		4D8624F42CB8767F00DF3BC7 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8624F32CB8767F00DF3BC7 /* FAQViewController.swift */; };
-		4D943F1A2D0A07D700FA087E /* TextValuesEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D943F192D0A07D700FA087E /* TextValuesEnum.swift */; };
+		4D943F1A2D0A07D700FA087E /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D943F192D0A07D700FA087E /* Enumerations.swift */; };
 		4DE379932CC6E5290029E5FA /* CustomSizePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE379922CC6E5290029E5FA /* CustomSizePresentationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4D277FF22CC1A8A8005E76F9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		4D22E52D2D0B6969003270B1 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		4D8624C82CB873A800DF3BC7 /* TaxHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaxHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D8624CB2CB873A800DF3BC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D8624CD2CB873A800DF3BC7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -40,7 +40,7 @@
 		4D8624EF2CB8760A00DF3BC7 /* StatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatePickerViewController.swift; sourceTree = "<group>"; };
 		4D8624F12CB8766200DF3BC7 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		4D8624F32CB8767F00DF3BC7 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
-		4D943F192D0A07D700FA087E /* TextValuesEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextValuesEnum.swift; sourceTree = "<group>"; };
+		4D943F192D0A07D700FA087E /* Enumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
 		4DE379922CC6E5290029E5FA /* CustomSizePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSizePresentationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -55,6 +55,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D22E52C2D0B6930003270B1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4D22E52D2D0B6969003270B1 /* MainScreenView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		4D8624BF2CB873A800DF3BC7 = {
 			isa = PBXGroup;
 			children = (
@@ -74,12 +82,13 @@
 		4D8624CA2CB873A800DF3BC7 /* TaxHelper */ = {
 			isa = PBXGroup;
 			children = (
+				4D8624E62CB874BB00DF3BC7 /* Helpers */,
 				4DBF9DB92D02577800D8E290 /* Resources */,
-				4DD5EC552CDBF68500C6D256 /* Supporting files */,
-				4D8624E62CB874BB00DF3BC7 /* Utilities */,
+				4DDB7C6C2D0A508400CAA69D /* Data */,
 				4D8624E52CB874B000DF3BC7 /* Controllers */,
+				4D22E52C2D0B6930003270B1 /* Views */,
 				4D8624E42CB874A100DF3BC7 /* Model */,
-				4D8624E22CB8748D00DF3BC7 /* state_taxes.json */,
+				4DD5EC552CDBF68500C6D256 /* Supporting files */,
 			);
 			path = TaxHelper;
 			sourceTree = "<group>";
@@ -104,15 +113,14 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		4D8624E62CB874BB00DF3BC7 /* Utilities */ = {
+		4D8624E62CB874BB00DF3BC7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				4D8624E72CB874E000DF3BC7 /* FontManager.swift */,
 				4D8624E92CB874F100DF3BC7 /* Extensions.swift */,
-				4D277FF22CC1A8A8005E76F9 /* Constants.swift */,
-				4D943F192D0A07D700FA087E /* TextValuesEnum.swift */,
+				4D943F192D0A07D700FA087E /* Enumerations.swift */,
 			);
-			path = Utilities;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		4DBF9DB92D02577800D8E290 /* Resources */ = {
@@ -148,6 +156,14 @@
 				4D8624D92CB873AA00DF3BC7 /* Info.plist */,
 			);
 			name = "Supporting files";
+			sourceTree = "<group>";
+		};
+		4DDB7C6C2D0A508400CAA69D /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				4D8624E22CB8748D00DF3BC7 /* state_taxes.json */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,10 +243,10 @@
 				4D8624CE2CB873A800DF3BC7 /* SceneDelegate.swift in Sources */,
 				4D8624EC2CB8755900DF3BC7 /* StateTax.swift in Sources */,
 				4D8624F02CB8760A00DF3BC7 /* StatePickerViewController.swift in Sources */,
-				4D277FF32CC1A8A9005E76F9 /* Constants.swift in Sources */,
 				4D8624EA2CB874F100DF3BC7 /* Extensions.swift in Sources */,
+				4D22E52E2D0B6969003270B1 /* MainScreenView.swift in Sources */,
 				4D8624F42CB8767F00DF3BC7 /* FAQViewController.swift in Sources */,
-				4D943F1A2D0A07D700FA087E /* TextValuesEnum.swift in Sources */,
+				4D943F1A2D0A07D700FA087E /* Enumerations.swift in Sources */,
 				4D8624F22CB8766200DF3BC7 /* InfoViewController.swift in Sources */,
 				4D8624EE2CB875B700DF3BC7 /* MainScreenViewController.swift in Sources */,
 			);

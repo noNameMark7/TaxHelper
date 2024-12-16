@@ -23,7 +23,7 @@ private extension MainScreenViewController {
     func setupUI() {
         configureNavigationBar()
         settingDelegate()
-        addDoneButtonTo(mainScreenView.priceTextField)
+        addDoneButtonTo(mainScreenView.netPriceTextField)
         addDoneButtonTo(mainScreenView.taxTextField)
     }
     
@@ -45,7 +45,7 @@ private extension MainScreenViewController {
     }
     
     func settingDelegate() {
-        mainScreenView.priceTextField.delegate = self
+        mainScreenView.netPriceTextField.delegate = self
         mainScreenView.taxTextField.delegate = self
         mainScreenView.delegate = self
     }
@@ -105,6 +105,16 @@ private extension MainScreenViewController {
             title: "\(state)"
         )
         mainScreenView.resetButton.isHidden = false
+        mainScreenView.taxExplanationLabel.isHidden = true
+        
+        // Deactivate old constraint and activate the new one
+        mainScreenView.selectStateButtonTopToLabelConstraint.isActive = false
+        mainScreenView.selectStateButtonTopToTextFieldConstraint.isActive = true
+        
+        // Animate the layout change
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
     }
 }
 
@@ -121,7 +131,7 @@ extension MainScreenViewController: UITextFieldDelegate {
         if textField.text?.isEmpty == true {
             textField.layer.borderColor = UIColor.inactiveField.cgColor
             textField.placeholder = (
-                textField == mainScreenView.priceTextField
+                textField == mainScreenView.netPriceTextField
                 ? TextValues.dollarSign.rawValue
                 : TextValues.salesTaxPercent.rawValue
             )
@@ -161,7 +171,7 @@ extension MainScreenViewController: MainScreenViewDelegate {
     }
     
     func calculateButtonTapped() {
-        guard let price = Double(mainScreenView.priceTextField.text ?? ""),
+        guard let price = Double(mainScreenView.netPriceTextField.text ?? ""),
               let taxRate = Double(mainScreenView.taxTextField.text ?? "") else { return }
 
         let totalTaxes = price * (taxRate / 100)

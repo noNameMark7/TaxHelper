@@ -11,6 +11,12 @@ class MainScreenView: UIView {
     // MARK: - Delegate
     weak var delegate: MainScreenViewDelegate?
     
+    // MARK: - Properties
+    var taxExplanationLabelTopConstraint: NSLayoutConstraint!
+    var selectStateButtonTopToLabelConstraint: NSLayoutConstraint!
+    var selectStateButtonTopToTextFieldConstraint: NSLayoutConstraint!
+
+    
     // MARK: - UI Components
     private let grossPriceLabel: UILabel = {
         let label = UILabel()
@@ -41,7 +47,7 @@ class MainScreenView: UIView {
         return label
     }()
     
-    lazy var priceTextField: UITextField = {
+    lazy var netPriceTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = FontManager.shared.labelFont(withSize: 16, withWeight: .medium)
@@ -50,7 +56,7 @@ class MainScreenView: UIView {
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 6
         textField.layer.borderColor = UIColor.inactiveField.cgColor
-        textField.keyboardType = .decimalPad
+        textField.keyboardType = .default
         textField.isUserInteractionEnabled = true
         return textField
     }()
@@ -152,7 +158,7 @@ extension MainScreenView {
             grossPriceLabel,
             totalPriceValueLabel,
             netPriceLabel,
-            priceTextField,
+            netPriceTextField,
             salesTaxLabel,
             taxTextField,
             taxExplanationLabel,
@@ -166,6 +172,25 @@ extension MainScreenView {
     }
     
     private func setupConstraints() {
+        // TaxExplanationLabel Constraints
+        taxExplanationLabelTopConstraint = taxExplanationLabel.topAnchor.constraint(
+            equalTo: taxTextField.bottomAnchor, constant: 4
+        )
+        
+        taxExplanationLabelTopConstraint.isActive = true
+        
+        // SelectStateButton Constraints
+        selectStateButtonTopToLabelConstraint = selectStateButton.topAnchor.constraint(
+            equalTo: taxExplanationLabel.bottomAnchor, constant: 20
+        )
+        
+        selectStateButtonTopToTextFieldConstraint = selectStateButton.topAnchor.constraint(
+            equalTo: taxTextField.bottomAnchor, constant: 20
+        )
+        
+        // Activate the default constraint
+        selectStateButtonTopToLabelConstraint.isActive = true
+
         grossPriceLabel.setConstraint(
             top: safeAreaLayoutGuide.topAnchor,
             topConstant: 26,
@@ -187,7 +212,7 @@ extension MainScreenView {
             height: LayoutConstants.baseHeight
         )
         
-        priceTextField.setConstraint(
+        netPriceTextField.setConstraint(
             top: netPriceLabel.bottomAnchor,
             centerX: centerXAnchor,
             widthMultiplier: LayoutConstants.baseMultiplier,
@@ -195,7 +220,7 @@ extension MainScreenView {
         )
         
         salesTaxLabel.setConstraint(
-            top: priceTextField.bottomAnchor,
+            top: netPriceTextField.bottomAnchor,
             topConstant: 10,
             leading: totalPriceValueLabel.leadingAnchor,
             height: LayoutConstants.baseHeight
@@ -209,15 +234,11 @@ extension MainScreenView {
         )
         
         taxExplanationLabel.setConstraint(
-            top: taxTextField.bottomAnchor,
-            topConstant: 4,
             centerX: centerXAnchor,
             widthMultiplier: LayoutConstants.baseMultiplier
         )
         
         selectStateButton.setConstraint(
-            top: taxExplanationLabel.bottomAnchor,
-            topConstant: 20,
             centerX: centerXAnchor,
             widthMultiplier: LayoutConstants.baseMultiplier,
             height: LayoutConstants.heightAnchor
@@ -255,7 +276,7 @@ extension MainScreenView {
         totalPriceValueLabel.textColor = theme.tertiaryTextColor
         totalPriceValueLabel.layer.borderColor = theme.inactiveFieldBorderColor.cgColor
         
-        priceTextField.layer.borderColor = theme.inactiveFieldBorderColor.cgColor
+        netPriceTextField.layer.borderColor = theme.inactiveFieldBorderColor.cgColor
         taxTextField.layer.borderColor = theme.inactiveFieldBorderColor.cgColor
         
         selectStateButton.setTitleColor(theme.primaryTextColor, for: .normal)
@@ -345,7 +366,7 @@ extension MainScreenView {
                 borderColor: UIColor.inactiveField
             )
             updateTextFieldState(
-                priceTextField,
+                netPriceTextField,
                 withText: "",
                 placeholder: TextValues.dollarSign.rawValue,
                 borderColor:  UIColor.inactiveField
@@ -365,7 +386,19 @@ extension MainScreenView {
                 selectStateButton,
                 title: TextValues.pickAState.rawValue
             )
+            
             resetButton.isHidden = true
+            
+            taxExplanationLabel.isHidden = false
+            
+            // Reactivate the original constraint
+            selectStateButtonTopToTextFieldConstraint.isActive = false
+            selectStateButtonTopToLabelConstraint.isActive = true
+            
+            UIView.animate(withDuration: 0.3) {
+                self.layoutIfNeeded()
+            }
+            
         case .calculate(let totalPrice):
             updateLabelState(
                 totalPriceValueLabel,

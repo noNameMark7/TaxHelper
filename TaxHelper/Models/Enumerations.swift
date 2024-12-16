@@ -36,6 +36,16 @@ enum TextValues: String {
     case whatHappensIfIDonotCollectItTextView = """
         If you were supposed to collect sales tax and didn’t, you could be looking at high financial penalties and interest. Those rates will depend on your state. You could also potentially face criminal charges or lose your vendor license.
         """
+    case grossPrice = "Gross price"
+    case dollarSign = "﹩"
+    case netPrice = "Net price"
+    case salesTax = "Sales tax"
+    case salesTaxPercent = "﹪"
+    case taxExplanation = "Automatically appears in the field based on the state you select."
+    case pickAState = "Pick a state"
+    case calculate = "CALCULATE"
+    case calculated = "CALCULATED"
+    case reset = "RESET"
 }
 
 enum LayoutConstants {

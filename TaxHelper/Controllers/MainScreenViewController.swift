@@ -3,21 +3,17 @@ import UIKit
 class MainScreenViewController: UIViewController {
     
     // MARK: - Properties
-    private let mainScreenView = MainScreenView()
+    private var mainScreenView: MainScreenView!
     
     // MARK: - Lifecycle
     override func loadView() {
+        mainScreenView = MainScreenView(frame: .zero)
         view = mainScreenView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        mainScreenView.updateAppearance(for: traitCollection)
     }
 }
 
@@ -106,9 +102,7 @@ private extension MainScreenViewController {
         )
         mainScreenView.updateButtonState(
             mainScreenView.selectStateButton,
-            title: "\(state)",
-            titleColor: .label,
-            backgroundColor: .systemBackground
+            title: "\(state)"
         )
         mainScreenView.resetButton.isHidden = false
     }
@@ -126,7 +120,11 @@ extension MainScreenViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text?.isEmpty == true {
             textField.layer.borderColor = UIColor.inactiveField.cgColor
-            textField.placeholder = (textField == mainScreenView.priceTextField ? "﹩" : "﹪")
+            textField.placeholder = (
+                textField == mainScreenView.priceTextField
+                ? TextValues.dollarSign.rawValue
+                : TextValues.salesTaxPercent.rawValue
+            )
         }
     }
 }

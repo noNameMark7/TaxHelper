@@ -12,69 +12,119 @@ class MainScreenView: UIView {
     weak var delegate: MainScreenViewDelegate?
     
     // MARK: - UI Components
-    lazy var grossPriceLabel = createLabel(
-        text: "Gross price",
-        fontSize: 16,
-        weight: .medium
-    )
+    private let grossPriceLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = TextValues.grossPrice.rawValue
+        label.font = FontManager.shared.labelFont(withSize: 16)
+        return label
+    }()
     
-    lazy var totalPriceValueLabel = createLabel(
-        text: "﹩",
-        fontSize: 18,
-        textColor: .tertiaryLabel,
-        borderColor: UIColor.inactiveField.cgColor,
-        borderWidth: 1.5,
-        cornerRadius: 7
-    )
+    private lazy var totalPriceValueLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = TextValues.dollarSign.rawValue
+        label.font = FontManager.shared.labelFont(withSize: 16, withWeight: .medium)
+        label.textColor = .tertiaryLabel
+        label.textAlignment = .center
+        label.layer.borderWidth = 1
+        label.layer.cornerRadius = 6
+        label.layer.borderColor = UIColor.inactiveField.cgColor
+        return label
+    }()
+        
+    private let netPriceLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = TextValues.netPrice.rawValue
+        label.font = FontManager.shared.labelFont(withSize: 16)
+        return label
+    }()
     
-    lazy var netPriceLabel = createLabel(
-        text: "Net price",
-        fontSize: 16,
-        weight: .medium
-    )
+    lazy var priceTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.font = FontManager.shared.labelFont(withSize: 16, withWeight: .medium)
+        textField.placeholder = TextValues.dollarSign.rawValue
+        textField.textAlignment = .center
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 6
+        textField.layer.borderColor = UIColor.inactiveField.cgColor
+        textField.keyboardType = .decimalPad
+        textField.isUserInteractionEnabled = true
+        return textField
+    }()
     
-    lazy var priceTextField = createTextField(
-        placeholder: "﹩",
-        borderColor: UIColor.inactiveField.cgColor
-    )
+    private let salesTaxLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = TextValues.salesTax.rawValue
+        label.font = FontManager.shared.labelFont(withSize: 16)
+        return label
+    }()
     
-    lazy var salesTaxLabel = createLabel(
-        text: "Sales tax",
-        fontSize: 16,
-        weight: .medium
-    )
+    lazy var taxTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.font = FontManager.shared.labelFont(withSize: 16, withWeight: .medium)
+        textField.placeholder = TextValues.salesTaxPercent.rawValue
+        textField.textAlignment = .center
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 6
+        textField.layer.borderColor = UIColor.inactiveField.cgColor
+        textField.isUserInteractionEnabled = false
+        return textField
+    }()
     
-    lazy var taxTextField = createTextField(
-        placeholder: "﹪",
-        borderColor: UIColor.inactiveField.cgColor,
-        isUserInteractionEnabled: false
-    )
+    let taxExplanationLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = FontManager.shared.labelFont(withSize: 11, withWeight: .light)
+        label.text = TextValues.taxExplanation.rawValue
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        return label
+    }()
     
-    lazy var taxExplanationLabel = createLabel(
-        text: "Automatically appears in the field based on the state you select.",
-        fontSize: 11,
-        weight: .light,
-        textColor: .secondaryLabel,
-        numberOfLines: 2
-    )
+    lazy var selectStateButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = FontManager.shared.labelFont(withSize: 18, withWeight: .bold)
+        button.setTitle(TextValues.pickAState.rawValue, for: .normal)
+        button.setTitleColor(.label, for: .normal)
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 6
+        button.layer.borderColor = UIColor.black.cgColor
+        button.backgroundColor = .clear
+        return button
+    }()
     
-    lazy var selectStateButton = createButton(
-        title: "Pick a state ⠆",
-        titleColor: .label
-    )
+    let calculateButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = FontManager.shared.labelFont(withSize: 18, withWeight: .bold)
+        button.setTitle(TextValues.calculate.rawValue, for: .normal)
+        button.setTitleColor(.label, for: .normal)
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 6
+        button.layer.borderColor = UIColor.black.cgColor
+        button.backgroundColor = .systemBlue
+        return button
+    }()
     
-    lazy var calculateButton = createButton(
-        title: "CALCULATE",
-        titleColor: .label,
-        backgroundColor: .systemBlue
-    )
-    
-    lazy var resetButton = createButton(
-        title: "RESET",
-        titleColor: .label,
-        backgroundColor: .systemRed,
-        isHidden: true
-    )
+    let resetButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = FontManager.shared.labelFont(withSize: 18, withWeight: .bold)
+        button.setTitle(TextValues.reset.rawValue, for: .normal)
+        button.setTitleColor(.label, for: .normal)
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 6
+        button.layer.borderColor = UIColor.black.cgColor
+        button.backgroundColor = .systemRed
+        button.isHidden = true
+        return button
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -85,13 +135,19 @@ class MainScreenView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle {
+            applyTheme()
+        }
+    }
 }
 
 // MARK: - UI Setup
 extension MainScreenView {
     
     private func setupUI() {
-        backgroundColor = .systemBackground
         [
             grossPriceLabel,
             totalPriceValueLabel,
@@ -104,8 +160,9 @@ extension MainScreenView {
             calculateButton,
             resetButton
         ].forEach { addSubview($0) }
-        
+   
         setupConstraints()
+        applyTheme()
     }
     
     private func setupConstraints() {
@@ -183,24 +240,28 @@ extension MainScreenView {
         )
     }
     
-    func updateAppearance(for traitCollection: UITraitCollection) {
-        if traitCollection.userInterfaceStyle == .dark {
-            [
-                selectStateButton,
-                calculateButton,
-                resetButton
-            ].forEach { component in
-                component.layer.borderColor = UIColor.white.cgColor
-            }
-        } else {
-            [
-                selectStateButton,
-                calculateButton,
-                resetButton
-            ].forEach { component in
-                component.layer.borderColor = UIColor.black.cgColor
-            }
-        }
+    private func applyTheme() {
+        let theme = (traitCollection.userInterfaceStyle == .dark)
+        ? ThemeManager.dark
+        : ThemeManager.light
+        
+        backgroundColor = theme.backgroundColor
+   
+        grossPriceLabel.textColor = theme.primaryTextColor
+        netPriceLabel.textColor = theme.primaryTextColor
+        salesTaxLabel.textColor = theme.primaryTextColor
+        taxExplanationLabel.textColor = theme.secondaryTextColor
+        
+        totalPriceValueLabel.textColor = theme.tertiaryTextColor
+        totalPriceValueLabel.layer.borderColor = theme.inactiveFieldBorderColor.cgColor
+        
+        priceTextField.layer.borderColor = theme.inactiveFieldBorderColor.cgColor
+        taxTextField.layer.borderColor = theme.inactiveFieldBorderColor.cgColor
+        
+        selectStateButton.setTitleColor(theme.primaryTextColor, for: .normal)
+        selectStateButton.layer.borderColor = theme.borderColor.cgColor
+        calculateButton.layer.borderColor = theme.borderColor.cgColor
+        resetButton.layer.borderColor = theme.borderColor.cgColor
     }
 }
 
@@ -240,72 +301,6 @@ private extension MainScreenView {
     }
 }
 
-// MARK: - Helpers
-extension MainScreenView {
-    
-    func createLabel(
-        text: String,
-        fontSize: CGFloat,
-        weight: UIFont.Weight = .regular,
-        textColor: UIColor = .label,
-        borderColor: CGColor? = nil,
-        borderWidth: CGFloat = 0,
-        cornerRadius: CGFloat = 0,
-        numberOfLines: Int = 1
-    ) -> UILabel {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = text
-        label.font = FontManager.shared.labelFont(withSize: fontSize, withWeight: weight)
-        label.textColor = textColor
-        label.layer.borderColor = borderColor
-        label.layer.borderWidth = borderWidth
-        label.layer.cornerRadius = cornerRadius
-        label.layer.masksToBounds = cornerRadius > 0
-        label.numberOfLines = numberOfLines
-        label.textAlignment = .center
-        return label
-    }
-    
-    func createTextField(
-        placeholder: String,
-        borderColor: CGColor,
-        isUserInteractionEnabled: Bool = true
-    ) -> UITextField {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = placeholder
-        textField.textAlignment = .center
-        textField.layer.cornerRadius = 7
-        textField.layer.borderWidth = 1.5
-        textField.layer.borderColor = borderColor
-        textField.isUserInteractionEnabled = isUserInteractionEnabled
-        textField.font = FontManager.shared.labelFont(withSize: 18)
-        textField.keyboardType = .decimalPad
-        return textField
-    }
-    
-    func createButton(
-        title: String,
-        titleColor: UIColor,
-        backgroundColor: UIColor = .systemBackground,
-        borderColor: CGColor? = nil,
-        isHidden: Bool = false
-    ) -> UIButton {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(titleColor, for: .normal)
-        button.backgroundColor = backgroundColor
-        button.layer.cornerRadius = 7
-        button.layer.borderWidth = 1.5
-        button.layer.borderColor = borderColor
-        button.isHidden = isHidden
-        button.titleLabel?.font = FontManager.shared.labelFont(withSize: 16, withWeight: .bold)
-        return button
-    }
-}
-
 // MARK: - State Updates
 extension MainScreenView {
     
@@ -323,11 +318,9 @@ extension MainScreenView {
     func updateButtonState(
         _ button: UIButton,
         title: String,
-        titleColor: UIColor,
         backgroundColor: UIColor? = nil
     ) {
         button.setTitle(title, for: .normal)
-        button.setTitleColor(titleColor, for: .normal)
         button.backgroundColor = backgroundColor
     }
     
@@ -347,35 +340,32 @@ extension MainScreenView {
         case .normal:
             updateLabelState(
                 totalPriceValueLabel,
-                text: "﹩",
+                text: TextValues.dollarSign.rawValue,
                 textColor: .tertiaryLabel,
                 borderColor: UIColor.inactiveField
             )
             updateTextFieldState(
                 priceTextField,
                 withText: "",
-                placeholder: "﹩",
-                borderColor: UIColor.inactiveField
+                placeholder: TextValues.dollarSign.rawValue,
+                borderColor:  UIColor.inactiveField
             )
             updateTextFieldState(
                 taxTextField,
                 withText: "",
-                placeholder: "﹪",
-                borderColor: UIColor.inactiveField
+                placeholder: TextValues.salesTaxPercent.rawValue,
+                borderColor:  UIColor.inactiveField
             )
             updateButtonState(
                 calculateButton,
-                title: "CALCULATE",
-                titleColor: .label,
+                title: TextValues.calculate.rawValue,
                 backgroundColor: .systemBlue
             )
             updateButtonState(
                 selectStateButton,
-                title: "Pick a state ⠆",
-                titleColor: .label
+                title: TextValues.pickAState.rawValue
             )
             resetButton.isHidden = true
-            
         case .calculate(let totalPrice):
             updateLabelState(
                 totalPriceValueLabel,
@@ -386,15 +376,13 @@ extension MainScreenView {
             
             updateButtonState(
                 calculateButton,
-                title: "CALCULATED",
-                titleColor: .label,
+                title: TextValues.calculated.rawValue,
                 backgroundColor: .systemBlue
             )
             
             updateButtonState(
                 resetButton,
-                title: "RESET",
-                titleColor: .label,
+                title: TextValues.reset.rawValue,
                 backgroundColor: .systemRed
             )
             resetButton.isHidden = false

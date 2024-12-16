@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4D22E52E2D0B6969003270B1 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22E52D2D0B6969003270B1 /* MainScreenView.swift */; };
+		4D22E5302D0DD0E5003270B1 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22E52F2D0DD0E5003270B1 /* ThemeManager.swift */; };
+		4D6D3CBA2D10E45C007BFA02 /* LabelConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6D3CB92D10E45C007BFA02 /* LabelConfiguration.swift */; };
 		4D8624CC2CB873A800DF3BC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8624CB2CB873A800DF3BC7 /* AppDelegate.swift */; };
 		4D8624CE2CB873A800DF3BC7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8624CD2CB873A800DF3BC7 /* SceneDelegate.swift */; };
 		4D8624D52CB873AA00DF3BC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D8624D42CB873AA00DF3BC7 /* Assets.xcassets */; };
@@ -26,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		4D22E52D2D0B6969003270B1 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
+		4D22E52F2D0DD0E5003270B1 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		4D6D3CB92D10E45C007BFA02 /* LabelConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelConfiguration.swift; sourceTree = "<group>"; };
 		4D8624C82CB873A800DF3BC7 /* TaxHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaxHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D8624CB2CB873A800DF3BC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D8624CD2CB873A800DF3BC7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +67,23 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		4D6D3CB72D10E384007BFA02 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				4D8624E72CB874E000DF3BC7 /* FontManager.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		4D6D3CB82D10E3B9007BFA02 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				4D22E52F2D0DD0E5003270B1 /* ThemeManager.swift */,
+				4D6D3CB92D10E45C007BFA02 /* LabelConfiguration.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		4D8624BF2CB873A800DF3BC7 = {
 			isa = PBXGroup;
 			children = (
@@ -82,23 +103,26 @@
 		4D8624CA2CB873A800DF3BC7 /* TaxHelper */ = {
 			isa = PBXGroup;
 			children = (
-				4D8624E62CB874BB00DF3BC7 /* Helpers */,
+				4D6D3CB82D10E3B9007BFA02 /* Managers */,
+				4D6D3CB72D10E384007BFA02 /* Utils */,
+				4D8624E62CB874BB00DF3BC7 /* Extensions */,
 				4DBF9DB92D02577800D8E290 /* Resources */,
 				4DDB7C6C2D0A508400CAA69D /* Data */,
 				4D8624E52CB874B000DF3BC7 /* Controllers */,
 				4D22E52C2D0B6930003270B1 /* Views */,
-				4D8624E42CB874A100DF3BC7 /* Model */,
+				4D8624E42CB874A100DF3BC7 /* Models */,
 				4DD5EC552CDBF68500C6D256 /* Supporting files */,
 			);
 			path = TaxHelper;
 			sourceTree = "<group>";
 		};
-		4D8624E42CB874A100DF3BC7 /* Model */ = {
+		4D8624E42CB874A100DF3BC7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4D943F192D0A07D700FA087E /* Enumerations.swift */,
 				4D8624EB2CB8755900DF3BC7 /* StateTax.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		4D8624E52CB874B000DF3BC7 /* Controllers */ = {
@@ -113,14 +137,12 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		4D8624E62CB874BB00DF3BC7 /* Helpers */ = {
+		4D8624E62CB874BB00DF3BC7 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				4D8624E72CB874E000DF3BC7 /* FontManager.swift */,
 				4D8624E92CB874F100DF3BC7 /* Extensions.swift */,
-				4D943F192D0A07D700FA087E /* Enumerations.swift */,
 			);
-			path = Helpers;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		4DBF9DB92D02577800D8E290 /* Resources */ = {
@@ -238,11 +260,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D8624CC2CB873A800DF3BC7 /* AppDelegate.swift in Sources */,
+				4D6D3CBA2D10E45C007BFA02 /* LabelConfiguration.swift in Sources */,
 				4DE379932CC6E5290029E5FA /* CustomSizePresentationController.swift in Sources */,
 				4D8624E82CB874E000DF3BC7 /* FontManager.swift in Sources */,
 				4D8624CE2CB873A800DF3BC7 /* SceneDelegate.swift in Sources */,
 				4D8624EC2CB8755900DF3BC7 /* StateTax.swift in Sources */,
 				4D8624F02CB8760A00DF3BC7 /* StatePickerViewController.swift in Sources */,
+				4D22E5302D0DD0E5003270B1 /* ThemeManager.swift in Sources */,
 				4D8624EA2CB874F100DF3BC7 /* Extensions.swift in Sources */,
 				4D22E52E2D0B6969003270B1 /* MainScreenView.swift in Sources */,
 				4D8624F42CB8767F00DF3BC7 /* FAQViewController.swift in Sources */,

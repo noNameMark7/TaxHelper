@@ -151,9 +151,9 @@ class MainScreenView: UIView {
 }
 
 // MARK: - UI Setup
-extension MainScreenView {
+private extension MainScreenView {
     
-    private func setupUI() {
+    func setupUI() {
         [
             grossPriceLabel,
             totalPriceValueLabel,
@@ -171,7 +171,7 @@ extension MainScreenView {
         applyTheme()
     }
     
-    private func setupConstraints() {
+    func setupConstraints() {
         // TaxExplanationLabel Constraints
         taxExplanationLabelTopConstraint = taxExplanationLabel.topAnchor.constraint(
             equalTo: taxTextField.bottomAnchor, constant: 4
@@ -261,7 +261,7 @@ extension MainScreenView {
         )
     }
     
-    private func applyTheme() {
+    func applyTheme() {
         let theme = (traitCollection.userInterfaceStyle == .dark)
         ? ThemeManager.dark
         : ThemeManager.light
@@ -287,9 +287,9 @@ extension MainScreenView {
 }
 
 // MARK: - Actions
-private extension MainScreenView {
+extension MainScreenView {
     
-    func setupActions() {
+    private func setupActions() {
         selectStateButton.addAction(
             UIAction { [weak self] _ in
                 self?.handleSelectStateTapped()
@@ -309,16 +309,92 @@ private extension MainScreenView {
         )
     }
     
-    func handleSelectStateTapped() {
+    private func handleSelectStateTapped() {
         delegate?.selectStateButtonTapped()
     }
     
-    func handleCalculateTapped() {
+    private func handleCalculateTapped() {
         delegate?.calculateButtonTapped()
     }
     
-    func handleResetTapped() {
+    private func handleResetTapped() {
         delegate?.resetButtonTapped()
+    }
+    
+    public func updateUIState(for mode: UIState) {
+        switch mode {
+        case .normal:
+            updateLabelState(
+                totalPriceValueLabel,
+                text: TextValues.dollarSign.rawValue,
+                textColor: .tertiaryLabel,
+                borderColor: UIColor.inactiveField
+            )
+            updateTextFieldState(
+                netPriceTextField,
+                withText: "",
+                placeholder: TextValues.dollarSign.rawValue,
+                borderColor:  UIColor.inactiveField
+            )
+            updateTextFieldState(
+                taxTextField,
+                withText: "",
+                placeholder: TextValues.salesTaxPercent.rawValue,
+                borderColor:  UIColor.inactiveField
+            )
+            updateButtonState(
+                calculateButton,
+                title: TextValues.calculate.rawValue,
+                backgroundColor: .systemBlue
+            )
+            updateButtonState(
+                selectStateButton,
+                title: TextValues.pickAState.rawValue
+            )
+            updatingComponentsToInitialStates()
+            
+        case .calculate(let totalPrice):
+            updateLabelState(
+                totalPriceValueLabel,
+                text: totalPrice,
+                textColor: .label,
+                borderColor: UIColor.activeField
+            )
+            
+            updateButtonState(
+                calculateButton,
+                title: TextValues.calculated.rawValue,
+                backgroundColor: .systemBlue
+            )
+            
+            updateButtonState(
+                resetButton,
+                title: TextValues.reset.rawValue,
+                backgroundColor: .systemRed
+            )
+            resetButton.isHidden = false
+        }
+    }
+    
+    private func updatingComponentsToInitialStates() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            // Step 1: Animate the buttons moving down
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+                self.resetButton.isHidden = true
+                self.selectStateButtonTopToTextFieldConstraint.isActive = false
+                self.selectStateButtonTopToLabelConstraint.isActive = true
+                self.layoutIfNeeded()
+            }) { _ in
+                // Step 2: Show the label after the buttons have finished moving
+                self.taxExplanationLabel.alpha = 0.0
+                self.taxExplanationLabel.isHidden = false
+                UIView.animate(withDuration: 0.1, delay: 0.1, options: .curveEaseIn) {
+                    self.taxExplanationLabel.alpha = 1.0
+                    self.layoutIfNeeded()
+                }
+            }
+        }
     }
 }
 
@@ -354,71 +430,5 @@ extension MainScreenView {
         label.text = text
         label.textColor = textColor
         label.layer.borderColor = borderColor.cgColor
-    }
-    
-    func updateUIState(for mode: UIState) {
-        switch mode {
-        case .normal:
-            updateLabelState(
-                totalPriceValueLabel,
-                text: TextValues.dollarSign.rawValue,
-                textColor: .tertiaryLabel,
-                borderColor: UIColor.inactiveField
-            )
-            updateTextFieldState(
-                netPriceTextField,
-                withText: "",
-                placeholder: TextValues.dollarSign.rawValue,
-                borderColor:  UIColor.inactiveField
-            )
-            updateTextFieldState(
-                taxTextField,
-                withText: "",
-                placeholder: TextValues.salesTaxPercent.rawValue,
-                borderColor:  UIColor.inactiveField
-            )
-            updateButtonState(
-                calculateButton,
-                title: TextValues.calculate.rawValue,
-                backgroundColor: .systemBlue
-            )
-            updateButtonState(
-                selectStateButton,
-                title: TextValues.pickAState.rawValue
-            )
-            
-            resetButton.isHidden = true
-            
-            taxExplanationLabel.isHidden = false
-            
-            // Reactivate the original constraint
-            selectStateButtonTopToTextFieldConstraint.isActive = false
-            selectStateButtonTopToLabelConstraint.isActive = true
-            
-            UIView.animate(withDuration: 0.3) {
-                self.layoutIfNeeded()
-            }
-            
-        case .calculate(let totalPrice):
-            updateLabelState(
-                totalPriceValueLabel,
-                text: totalPrice,
-                textColor: .label,
-                borderColor: UIColor.activeField
-            )
-            
-            updateButtonState(
-                calculateButton,
-                title: TextValues.calculated.rawValue,
-                backgroundColor: .systemBlue
-            )
-            
-            updateButtonState(
-                resetButton,
-                title: TextValues.reset.rawValue,
-                backgroundColor: .systemRed
-            )
-            resetButton.isHidden = false
-        }
     }
 }

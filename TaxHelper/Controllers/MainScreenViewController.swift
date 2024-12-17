@@ -104,16 +104,22 @@ private extension MainScreenViewController {
             mainScreenView.selectStateButton,
             title: "\(state)"
         )
-        mainScreenView.resetButton.isHidden = false
-        mainScreenView.taxExplanationLabel.isHidden = true
-        
-        // Deactivate old constraint and activate the new one
-        mainScreenView.selectStateButtonTopToLabelConstraint.isActive = false
-        mainScreenView.selectStateButtonTopToTextFieldConstraint.isActive = true
-        
-        // Animate the layout change
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
+        updatingComponentsAfterSelectingAState()
+    }
+    
+    func updatingComponentsAfterSelectingAState() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.mainScreenView.resetButton.isHidden = false
+            self.mainScreenView.taxExplanationLabel.alpha = 1.0
+            self.mainScreenView.taxExplanationLabel.isHidden = true
+            // Deactivate old constraint and activate the new one
+            self.mainScreenView.selectStateButtonTopToLabelConstraint.isActive = false
+            self.mainScreenView.selectStateButtonTopToTextFieldConstraint.isActive = true
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn) {
+                self.mainScreenView.taxExplanationLabel.alpha = 0.0
+                self.view.layoutIfNeeded()
+            }
         }
     }
 }

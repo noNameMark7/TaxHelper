@@ -322,57 +322,61 @@ extension MainScreenView {
     }
     
     public func updateUIState(for mode: UIState) {
-        switch mode {
-        case .normal:
-            updateLabelState(
-                totalPriceValueLabel,
-                text: TextValues.dollarSign.rawValue,
-                textColor: .tertiaryLabel,
-                borderColor: UIColor.inactiveField
-            )
-            updateTextFieldState(
-                netPriceTextField,
-                withText: "",
-                placeholder: TextValues.dollarSign.rawValue,
-                borderColor:  UIColor.inactiveField
-            )
-            updateTextFieldState(
-                taxTextField,
-                withText: "",
-                placeholder: TextValues.salesTaxPercent.rawValue,
-                borderColor:  UIColor.inactiveField
-            )
-            updateButtonState(
-                calculateButton,
-                title: TextValues.calculate.rawValue,
-                backgroundColor: .systemBlue
-            )
-            updateButtonState(
-                selectStateButton,
-                title: TextValues.pickAState.rawValue
-            )
-            updatingComponentsToInitialStates()
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
             
-        case .calculate(let totalPrice):
-            updateLabelState(
-                totalPriceValueLabel,
-                text: totalPrice,
-                textColor: .label,
-                borderColor: UIColor.activeField
-            )
-            
-            updateButtonState(
-                calculateButton,
-                title: TextValues.calculated.rawValue,
-                backgroundColor: .systemBlue
-            )
-            
-            updateButtonState(
-                resetButton,
-                title: TextValues.reset.rawValue,
-                backgroundColor: .systemRed
-            )
-            resetButton.isHidden = false
+            switch mode {
+            case .normal:
+                strongSelf.updateLabelState(
+                    strongSelf.totalPriceValueLabel,
+                    text: TextValues.dollarSign.rawValue,
+                    textColor: .tertiaryLabel,
+                    borderColor: UIColor.inactiveField
+                )
+                strongSelf.updateTextFieldState(
+                    strongSelf.netPriceTextField,
+                    withText: "",
+                    placeholder: TextValues.dollarSign.rawValue,
+                    borderColor:  UIColor.inactiveField
+                )
+                strongSelf.updateTextFieldState(
+                    strongSelf.taxTextField,
+                    withText: "",
+                    placeholder: TextValues.salesTaxPercent.rawValue,
+                    borderColor:  UIColor.inactiveField
+                )
+                strongSelf.updateButtonState(
+                    strongSelf.calculateButton,
+                    title: TextValues.calculate.rawValue,
+                    backgroundColor: .systemBlue
+                )
+                strongSelf.updateButtonState(
+                    strongSelf.selectStateButton,
+                    title: TextValues.pickAState.rawValue
+                )
+                strongSelf.updatingComponentsToInitialStates()
+                
+            case .calculate(let totalPrice):
+                strongSelf.updateLabelState(
+                    strongSelf.totalPriceValueLabel,
+                    text: totalPrice,
+                    textColor: .label,
+                    borderColor: UIColor.activeField
+                )
+                
+                strongSelf.updateButtonState(
+                    strongSelf.calculateButton,
+                    title: TextValues.calculated.rawValue,
+                    backgroundColor: .systemGreen
+                )
+                
+                strongSelf.updateButtonState(
+                    strongSelf.resetButton,
+                    title: TextValues.reset.rawValue,
+                    backgroundColor: .red
+                )
+                strongSelf.resetButton.isHidden = false
+            }
         }
     }
     

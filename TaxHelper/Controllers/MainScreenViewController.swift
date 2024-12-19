@@ -95,30 +95,34 @@ private extension MainScreenViewController {
     }
     
     func updateStateOnTaxSelection(taxRate: Double, state: String) {
-        mainScreenView.updateTextFieldState(
-            mainScreenView.taxTextField,
-            withText: "\(taxRate)",
-            borderColor: UIColor.activeField
-        )
-        mainScreenView.updateButtonState(
-            mainScreenView.selectStateButton,
-            title: "\(state)"
-        )
-        updatingComponentsAfterSelectingAState()
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            strongSelf.mainScreenView.updateTextFieldState(
+                strongSelf.mainScreenView.taxTextField,
+                withText: "\(taxRate)",
+                borderColor: UIColor.activeField
+            )
+            strongSelf.mainScreenView.updateButtonState(
+                strongSelf.mainScreenView.selectStateButton,
+                title: "\(state)"
+            )
+            strongSelf.updatingComponentsAfterSelectingAState()
+        }
     }
     
     func updatingComponentsAfterSelectingAState() {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.mainScreenView.resetButton.isHidden = false
-            self.mainScreenView.taxExplanationLabel.alpha = 1.0
-            self.mainScreenView.taxExplanationLabel.isHidden = true
+            guard let strongSelf = self else { return }
+            strongSelf.mainScreenView.resetButton.isHidden = false
+            strongSelf.mainScreenView.taxExplanationLabel.alpha = 1.0
+            strongSelf.mainScreenView.taxExplanationLabel.isHidden = true
             // Deactivate old constraint and activate the new one
-            self.mainScreenView.selectStateButtonTopToLabelConstraint.isActive = false
-            self.mainScreenView.selectStateButtonTopToTextFieldConstraint.isActive = true
+            strongSelf.mainScreenView.selectStateButtonTopToLabelConstraint.isActive = false
+            strongSelf.mainScreenView.selectStateButtonTopToTextFieldConstraint.isActive = true
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn) {
-                self.mainScreenView.taxExplanationLabel.alpha = 0.0
-                self.view.layoutIfNeeded()
+                strongSelf.mainScreenView.taxExplanationLabel.alpha = 0.0
+                strongSelf.view.layoutIfNeeded()
             }
         }
     }
